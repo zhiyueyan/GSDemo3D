@@ -92,7 +92,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private boolean isSensorUsed,isUltrasonicUsed;
 
     private int IMUCount;
-    private int flightTime;
+    //private int flightTime;
     private double droneLocationLat = 181, droneLocationLng = 181;
     private double droneLocationHeight;
     private float heading,droneVelocityX,droneVelocityY,droneVelocityZ;
@@ -262,7 +262,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         //adapter = new ArrayAdapter<>(this,android.R.layout.simple_expandable_list_item_1,sensors);
 
         initMapView();
-        initWindow();
+        //initWindow();
         initUI();
         addListener();
         handler = new Handler(){
@@ -274,7 +274,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                             waypointList.clear();
                             mMarkers.clear();
                             waypointMissionBuilder.waypointList(waypointList);
-                            updateDroneLocation();
+                            //updateDroneLocation();
                             setResultToToast("清除成功");
                         }else {
                             setResultToToast("没有航点，无法删除");
@@ -411,7 +411,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             if (error == null){
                 setResultToToast("Execution finished: Success!");
                 isFlying = false;
-                flightTime = 0;
+                //flightTime = 0;
             }else {
                 setResultToToast("Execution finished: " +error.getDescription());
             }
@@ -723,8 +723,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         getWaypointMissionOperator().startMission(new CommonCallbacks.CompletionCallback() {
             @Override
             public void onResult(DJIError error) {
-                isFlying = true;
-                setResultToToast("Mission Start: " + (error == null ? "Successfully" : error.getDescription()));
+                //setResultToToast("Mission Start: " + (error == null ? "Successfully" : error.getDescription()));
+                if (error ==null){
+                    setResultToToast("Mission Start: Success" );
+                    isFlying = true;
+                    //flightTime = 0;
+                    //enableDisableAdd();
+                }else {
+                    setResultToToast("Mission Start: "+error.getDescription());
+                }
             }
         });
 
@@ -732,8 +739,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     private void stopWaypointMission(){
         isFlying = false;
-        flightTime = 0;
-
         getWaypointMissionOperator().stopMission(new CommonCallbacks.CompletionCallback() {
             @Override
             public void onResult(DJIError error) {

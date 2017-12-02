@@ -25,7 +25,8 @@
 
             <dji.ui.widget.PreFlightStatusWidget
                 android:layout_width="238dp"
-                android:layout_height="25dp"/>
+                android:layout_height="25dp"
+                android:clickable="true"/>
 
             <dji.ui.widget.FlightModeWidget
                 android:layout_width="103dp"
@@ -54,7 +55,8 @@
             <dji.ui.widget.BatteryWidget
                 android:layout_width="96dp"
                 android:layout_height="22dp"
-                custom:excludeView="singleVoltage"/>
+                custom:excludeView="singleVoltage"
+                android:clickable="true"/>
 
             <dji.ui.widget.ConnectionWidget
                 android:layout_marginTop="3dp"

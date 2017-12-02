@@ -20,11 +20,7 @@ class PositionUtil {
     }
 
     private static boolean outOfChina(double lat, double lon) {
-        if (lon < 72.004 || lon > 137.8347)
-            return true;
-        if (lat < 0.8293 || lat > 55.8271)
-            return true;
-        return false;
+        return lon < 72.004 || lon > 137.8347 || lat < 0.8293 || lat > 55.8271;
     }
 
     private static LatLng transform(double lat, double lon) {
