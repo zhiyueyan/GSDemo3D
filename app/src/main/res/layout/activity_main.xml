@@ -1,0 +1,149 @@
+<android.support.v4.widget.DrawerLayout
+    android:id="@+id/drawer_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    tools:context="com.dji.GSDemo.GaodeMap.MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.amap.api.maps2d.MapView
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:id="@+id/signal"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:background="@color/dark_gray"
+            android:orientation="horizontal">
+
+            <dji.ui.widget.PreFlightStatusWidget
+                android:layout_width="238dp"
+                android:layout_height="25dp"/>
+
+            <dji.ui.widget.FlightModeWidget
+                android:layout_width="103dp"
+                android:layout_height="22dp"/>
+
+            <dji.ui.widget.GPSSignalWidget
+                android:layout_width="44dp"
+                android:layout_height="22dp"/>
+
+            <dji.ui.widget.VisionWidget
+                android:layout_width="22dp"
+                android:layout_height="22dp"/>
+
+            <dji.ui.widget.RemoteControlSignalWidget
+                android:layout_width="38dp"
+                android:layout_height="22dp"/>
+
+            <dji.ui.widget.VideoSignalWidget
+                android:layout_width="38dp"
+                android:layout_height="22dp"/>
+
+            <dji.ui.widget.WiFiSignalWidget
+                android:layout_width="22dp"
+                android:layout_height="20dp"/>
+
+            <dji.ui.widget.BatteryWidget
+                android:layout_width="96dp"
+                android:layout_height="22dp"
+                custom:excludeView="singleVoltage"/>
+
+            <dji.ui.widget.ConnectionWidget
+                android:layout_marginTop="3dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"/>
+
+        </LinearLayout>
+
+        <dji.ui.widget.RemainingFlightTimeWidget
+            android:id="@+id/flightTime"
+            android:layout_marginTop="18dp"
+            android:layout_width="match_parent"
+            android:background="@color/transparent"
+            android:layout_height="20dp"/>
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:scrollbars="vertical"
+            android:layout_below="@+id/flightTime">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/locate"
+                    style="@style/left_button_list_button"
+                    android:text="locate"/>
+
+                <Button
+                    android:id="@+id/add"
+                    style="@style/left_button_list_button"
+                    android:text="add"/>
+
+                <Button
+                    android:id="@+id/clear"
+                    style="@style/left_button_list_button"
+                    android:text="clear"/>
+
+                <Button
+                    style="@style/left_button_list_button"
+                    android:id="@+id/revoke"
+                    android:text="revoke"/>
+
+                <Button
+                    style="@style/left_button_list_button"
+                    android:id="@+id/config"
+                    android:text="config"/>
+
+                <Button
+                    android:id="@+id/upload"
+                    style="@style/left_button_list_button"
+                    android:text="upload" />
+
+                <Button
+                    android:id="@+id/start"
+                    style="@style/left_button_list_button"
+                    android:text="start"/>
+
+                <Button
+                    android:id="@+id/stop"
+                    style="@style/left_button_list_button"
+                    android:text="stop"/>
+
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#ffffff">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/infrmation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="info :" />
+        </LinearLayout>
+
+    </FrameLayout>
+
+</android.support.v4.widget.DrawerLayout>
