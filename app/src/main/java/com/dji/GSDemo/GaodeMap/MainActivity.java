@@ -208,12 +208,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 wmManager=(WindowManager) getSystemService(Context.WINDOW_SERVICE);
                 //设置窗口属性
                 WindowManager.LayoutParams wmParams = new WindowManager.LayoutParams();
-                wmParams.type = WindowManager.LayoutParams.TYPE_TOAST;
+                wmParams.type = WindowManager.LayoutParams.TYPE_PHONE;
                 wmParams.gravity = Gravity.END| Gravity.TOP;
                 wmParams.x = 0;// 以屏幕左上角为原点，设置x、y初始值
-                wmParams.y = 50;
+                wmParams.y = 40;
                 wmParams.width = 200;//WindowManager.LayoutParams.MATCH_PARENT;// 设置悬浮窗口长宽数据
-                wmParams.height = 150;//WindowManager.LayoutParams.MATCH_PARENT;
+                wmParams.height = 120;//WindowManager.LayoutParams.MATCH_PARENT;
                 wmParams.flags= WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
                 wmParams.alpha = 1;
                 view = View.inflate(getApplicationContext(), R.layout.fpv_layout,null);
@@ -269,9 +269,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         //adapter = new ArrayAdapter<>(this,android.R.layout.simple_expandable_list_item_1,sensors);
 
         initMapView();
-        //initWindow();
         initUI();
         addListener();
+        initWindow();
         handler = new Handler(){
             public void handleMessage(Message msg){
                 switch(msg.what){

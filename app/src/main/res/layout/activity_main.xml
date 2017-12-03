@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/signal"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:background="@color/dark_gray">
             <dji.ui.widget.dashboard.HorizontalVelocityWidget
                 android:layout_width="71dp"
