@@ -16,6 +16,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -110,12 +112,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     private float altitude = 100.0f;
     private float mSpeed = 10.0f;
-    private float mRadius = 5.0f;
+    private float mRadius;
 
     private List<Waypoint> waypointList = new ArrayList<>();
 
     public static WaypointMission.Builder waypointMissionBuilder;
     private FlightController mFlightController;
+    private Waypoint mWaypoint;
     private Compass compass;
     private FlightAssistant flightAssistant;
     private WaypointMissionOperator instance;
@@ -211,7 +214,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 wmParams.type = WindowManager.LayoutParams.TYPE_PHONE;
                 wmParams.gravity = Gravity.END| Gravity.TOP;
                 wmParams.x = 0;// 以屏幕左上角为原点，设置x、y初始值
-                wmParams.y = 40;
+                wmParams.y = 50;
                 wmParams.width = 200;//WindowManager.LayoutParams.MATCH_PARENT;// 设置悬浮窗口长宽数据
                 wmParams.height = 120;//WindowManager.LayoutParams.MATCH_PARENT;
                 wmParams.flags= WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
@@ -438,9 +441,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         if (isAdd){
             markWaypoint(point);
             LatLng pointAfter = PositionUtil.gcj_To_Gps84(point.latitude,point.longitude);
-            Waypoint mWaypoint = new Waypoint(pointAfter.latitude, pointAfter.longitude, altitude);
+            mWaypoint = new Waypoint(pointAfter.latitude, pointAfter.longitude, altitude);
             //Add Waypoints to Waypoint arraylist;
-            mWaypoint.cornerRadiusInMeters = mRadius;
             missionBuild(mWaypoint);
         }else{
             setResultToToast("Cannot Add Waypoint");
@@ -574,15 +576,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     radius_tv.setVisibility(View.VISIBLE);
                     radius.setVisibility(View.VISIBLE);
                     mFlightPathMode = WaypointMissionFlightPathMode.CURVED;
-                    radius.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                        @Override
-                        public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                            if (radius.getText() != null && radius.getText().toString()!="") {
-                                mRadius = Float.parseFloat(radius.getText().toString());
-                            }
-                            return false;
-                        }
-                    });
                 }else {
                     radius_tv.setVisibility(View.INVISIBLE);
                     radius.setVisibility(View.INVISIBLE);
@@ -648,6 +641,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
                         String altitudeString = wpAltitude_TV.getText().toString();
                         altitude = Integer.parseInt(Util.nulltoIntegerDefalt(altitudeString));
+                        mRadius = Float.parseFloat(radius.getText().toString());
                         Log.e(TAG,"altitude "+altitude);
                         Log.e(TAG,"speed "+mSpeed);
                         Log.e(TAG, "mFinishedAction "+mFinishedAction);
@@ -677,7 +671,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                                                                   .maxFlightSpeed(mSpeed)
                                                                   .flightPathMode(mFlightPathMode);
 
-        }else {waypointMissionBuilder.finishedAction(mFinishedAction)
+        }else {
+            waypointMissionBuilder.finishedAction(mFinishedAction)
                     .headingMode(mHeadingMode)
                     .autoFlightSpeed(mSpeed)
                     .maxFlightSpeed(mSpeed)
@@ -689,7 +684,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
             for (int i=0; i< waypointMissionBuilder.getWaypointList().size(); i++){
                 waypointMissionBuilder.getWaypointList().get(i).altitude = altitude;
+                if (waypointMissionBuilder.getFlightPathMode() == WaypointMissionFlightPathMode.CURVED) {
+                    waypointMissionBuilder.getWaypointList().get(i).cornerRadiusInMeters = mRadius;
+                }
             }
+
 
             setResultToToast("Set Waypoint attitude successfully");
         }
@@ -826,7 +825,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                         +droneVelocityZ*droneVelocityZ))).append("m/s").append("\n");
         //sb.append("FlightTime :").append(flightTime).append("s").append("\n");
         sb.append("IMUCount :").append(IMUCount).append("\n");
-        sb.append("UltrasonicHeight :").append(Util.format2f(ultrasonicHeight)).append("(5米内有效)").append("\n");
+        sb.append("UltrasonicHeight :").append(Util.format2f(ultrasonicHeight)).append("(5米)").append("\n");
         sb.append("isSensorUsed :").append(isSensorUsed).append("\n");
         sb.append("isUltrasonicUsed :").append(isUltrasonicUsed).append("\n");
         sb.append("GyroscopeState :").append(GyroscopeState).append("\n");

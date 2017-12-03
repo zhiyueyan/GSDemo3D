@@ -1,4 +1,5 @@
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
@@ -75,24 +76,12 @@
             android:layout_height="20dp"
             android:layout_marginTop="18dp"
             android:background="@color/transparent" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/signal"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:background="@color/dark_gray">
-            <dji.ui.widget.dashboard.HorizontalVelocityWidget
-                android:layout_width="71dp"
-                android:layout_height="16dp"/>
-            <dji.ui.widget.dashboard.VerticalVelocityWidget
-                android:layout_width="71dp"
-                android:layout_height="16dp"/>
-            <dji.ui.widget.dashboard.AltitudeWidget
-                android:layout_width="71dp"
-                android:layout_height="16dp"/>
-        </LinearLayout>
+        
+        <dji.ui.widget.dashboard.DashboardWidget
+            android:layout_width="405dp"
+            android:layout_height="91dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@+id/menu_btn"/>
 
         <ScrollView
             android:id="@+id/menu_btn"

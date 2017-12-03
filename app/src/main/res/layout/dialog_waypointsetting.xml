@@ -241,7 +241,7 @@
 
         <EditText
             android:id="@+id/radius"
-            android:layout_width="30dp"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
             android:visibility="invisible"
             android:layout_gravity="center_vertical"
