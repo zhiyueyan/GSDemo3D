@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,6 +68,7 @@ import dji.sdk.mission.waypoint.WaypointMissionOperatorListener;
 import dji.sdk.products.Aircraft;
 import dji.sdk.sdkmanager.DJISDKManager;
 import dji.sdk.useraccount.UserAccountManager;
+import dji.ui.widget.PreFlightStatusWidget;
 
 import static com.dji.GSDemo.GaodeMap.PositionUtil.checkGpsCoordination;
 import static com.dji.GSDemo.GaodeMap.PositionUtil.coordinateTransform;
@@ -85,6 +87,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private Button config, upload, start, stop;
     private TextView infrmationTV;
     private DrawerLayout drawerLayout;
+    private ScrollView scrollView;
+    private PreFlightStatusWidget flightStatusWidget;
 
     private boolean isAdd = false;
     private boolean isFlying = false;
@@ -182,6 +186,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         infrmationTV = (TextView) findViewById(R.id.infrmation);
+        flightStatusWidget = (PreFlightStatusWidget) findViewById(R.id.flightStatus);
+        scrollView = (ScrollView) findViewById(R.id.menu_btn);
 
         locate.setOnClickListener(this);
         add.setOnClickListener(this);
@@ -191,6 +197,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         upload.setOnClickListener(this);
         start.setOnClickListener(this);
         stop.setOnClickListener(this);
+        flightStatusWidget.setOnClickListener(this);
         drawerLayout.setDrawerListener(this);
     }
 
@@ -365,7 +372,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 @Override
                 public void onUpdate(@NonNull VisionDetectionState visionDetectionState) {
                     isSensorUsed = visionDetectionState.isSensorBeingUsed();
-
                 }
             });
         }
@@ -537,6 +543,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             case R.id.stop:{
                 stopWaypointMission();
                 break;
+            }
+            case R.id.flightStatus:{
+                if (scrollView.getVisibility() == View.VISIBLE){
+                    scrollView.setVisibility(View.INVISIBLE);
+                }else {
+                    scrollView.setVisibility(View.VISIBLE);
+                }
             }
             default:
                 break;

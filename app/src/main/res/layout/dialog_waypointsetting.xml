@@ -39,7 +39,8 @@
         <EditText
             android:id="@+id/altitude"
             android:layout_width="40dp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:maxLines="1">
         </EditText>
     </LinearLayout>
 
@@ -240,10 +241,11 @@
 
         <EditText
             android:id="@+id/radius"
-            android:layout_width="40dp"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:visibility="invisible"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            android:maxLines="1"/>
     </LinearLayout>
 
         </LinearLayout>
