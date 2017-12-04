@@ -31,6 +31,7 @@ class Util {
         try {
             fos = new FileOutputStream(file,true);
             fos.write(str.getBytes());
+            fos.flush();
         }catch (Exception e){
             e.printStackTrace();
         }

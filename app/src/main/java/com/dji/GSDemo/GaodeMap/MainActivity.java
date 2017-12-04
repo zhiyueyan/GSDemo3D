@@ -98,7 +98,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private boolean isSensorUsed,isUltrasonicUsed;
 
     private int IMUCount;
-    //private int flightTime;
+    private int flightTime;
     private double droneLocationLat = 181, droneLocationLng = 181;
     private double droneLocationHeight;
     private float heading,droneVelocityX,droneVelocityY,droneVelocityZ;
@@ -129,7 +129,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     private SensorState GyroscopeState;
     private SensorState AccelerometerState;
-
 
     @Override
     protected void onResume(){
@@ -420,7 +419,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             if (error == null){
                 setResultToToast("Execution finished: Success!");
                 isFlying = false;
-                //flightTime = 0;
             }else {
                 setResultToToast("Execution finished: " +error.getDescription());
             }
@@ -641,14 +639,15 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
                         String altitudeString = wpAltitude_TV.getText().toString();
                         altitude = Integer.parseInt(Util.nulltoIntegerDefalt(altitudeString));
-                        mRadius = Float.parseFloat(radius.getText().toString());
+                        if (radius.getText()!=null && !radius.getText().toString().equals("")) {
+                            mRadius = Float.parseFloat(radius.getText().toString());
+                        }
                         Log.e(TAG,"altitude "+altitude);
                         Log.e(TAG,"speed "+mSpeed);
                         Log.e(TAG, "mFinishedAction "+mFinishedAction);
                         Log.e(TAG, "mHeadingMode "+mHeadingMode);
                         configWayPointMission();
                     }
-
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -659,7 +658,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 .create()
                 .show();
     }
-
 
     private void configWayPointMission(){
 
@@ -688,8 +686,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     waypointMissionBuilder.getWaypointList().get(i).cornerRadiusInMeters = mRadius;
                 }
             }
-
-
             setResultToToast("Set Waypoint attitude successfully");
         }
 
@@ -718,39 +714,38 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void startWaypointMission(){
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                while(isFlying){
-//                    Util.saveInfo(information);
-//                    flightTime++;
-//                    try {
-//                        Thread.sleep(1000);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//        }).start();
         getWaypointMissionOperator().startMission(new CommonCallbacks.CompletionCallback() {
             @Override
             public void onResult(DJIError error) {
                 //setResultToToast("Mission Start: " + (error == null ? "Successfully" : error.getDescription()));
-                if (error ==null){
+                if (error == null){
                     setResultToToast("Mission Start: Success" );
                     isFlying = true;
-                    //flightTime = 0;
-                    //enableDisableAdd();
+                    flightTime = 0;
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            while(isFlying){
+                                Util.saveInfo(information);
+                                flightTime++;
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    }).start();
                 }else {
                     setResultToToast("Mission Start: "+error.getDescription());
                 }
             }
         });
-
     }
 
     private void stopWaypointMission(){
         isFlying = false;
+        flightTime = 0;
         getWaypointMissionOperator().stopMission(new CommonCallbacks.CompletionCallback() {
             @Override
             public void onResult(DJIError error) {
@@ -777,7 +772,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         float zoomLevel = (float) 18.0;
         CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(posAfter, zoomLevel);
         aMap.moveCamera(cu);
-
     }
 
     private void onRevokeClick(){
@@ -823,7 +817,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 droneVelocityX*droneVelocityX
                         +droneVelocityY*droneVelocityY
                         +droneVelocityZ*droneVelocityZ))).append("m/s").append("\n");
-        //sb.append("FlightTime :").append(flightTime).append("s").append("\n");
+        sb.append("FlightTime :").append(flightTime).append("s").append("\n");
         sb.append("IMUCount :").append(IMUCount).append("\n");
         sb.append("UltrasonicHeight :").append(Util.format2f(ultrasonicHeight)).append("(5米)").append("\n");
         sb.append("isSensorUsed :").append(isSensorUsed).append("\n");
@@ -856,7 +850,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                         e.printStackTrace();
                     }
                 }
-
             }
         }).start();
     }
