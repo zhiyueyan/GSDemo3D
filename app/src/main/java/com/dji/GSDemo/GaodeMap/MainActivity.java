@@ -104,6 +104,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private float heading,droneVelocityX,droneVelocityY,droneVelocityZ;
     private float ultrasonicHeight;
     private String information;
+    private String info;
 
     private final Map<Integer, Marker> mMarkers = new ConcurrentHashMap<>();
     private Marker droneMarker,markerDot= null;
@@ -726,7 +727,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                         @Override
                         public void run() {
                             while(isFlying){
-                                Util.saveInfo(information);
+                                info = getInformation();
+                                Util.saveInfo(info);
                                 flightTime++;
                                 try {
                                     Thread.sleep(1000);
@@ -787,7 +789,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 }else {
                     setResultToToast("没有航点，无法删除");
                 }
-
             }
         });
     }
