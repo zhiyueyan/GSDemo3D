@@ -2,12 +2,21 @@ package com.dji.GSDemo.GaodeMap;
 
 
 import android.os.Environment;
+import android.util.Xml;
 
+import org.xmlpull.v1.XmlSerializer;
+
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 class Util {
     static String format7f(double a){
@@ -74,6 +83,54 @@ class Util {
             return "正西方向";
         }else {
             return "正南方向";
+        }
+    }
+
+    static void saveXmlInfo(List<String> informations){
+        File file = new File(Environment.getExternalStorageDirectory(),"info.xml");
+        FileOutputStream fos;
+        XmlSerializer xmlSerializer = Xml.newSerializer();//获取对象
+        try {
+            fos = new FileOutputStream(file,true);
+            xmlSerializer.setOutput(fos,"UTF-8");//设置输出流
+            xmlSerializer.startDocument("UTF-8",true);//设置文档标签
+            xmlSerializer.startTag(null,"Informations");//设置根标签
+
+            xmlSerializer.startTag(null,"Time");
+            xmlSerializer.text(informations.get(0));
+            xmlSerializer.endTag(null,"Time");
+
+            xmlSerializer.startTag(null,"Lat");
+            xmlSerializer.text(informations.get(1));
+            xmlSerializer.endTag(null,"Lat");
+
+            xmlSerializer.startTag(null,"Lng");
+            xmlSerializer.text(informations.get(2));
+            xmlSerializer.endTag(null,"Lng");
+
+            xmlSerializer.endTag(null,"Informations");
+            xmlSerializer.endDocument();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    static void uploadServer(String information,String ip,int port){
+        Socket socket ;
+        String message = information;
+        try {
+            //创建Socket
+            socket = new Socket(ip,port);
+            //向服务器端发送消息
+            PrintWriter out = new PrintWriter( new BufferedWriter( new OutputStreamWriter(socket.getOutputStream())),true);
+            out.println(message);
+            //关闭流
+            out.close();
+            //关闭Socket
+            socket.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

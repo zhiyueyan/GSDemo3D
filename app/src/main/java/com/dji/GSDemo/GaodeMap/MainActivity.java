@@ -16,11 +16,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
+
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -101,6 +99,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private int flightTime;
     private double droneLocationLat = 181, droneLocationLng = 181;
     private double droneLocationHeight;
+
+
     private float heading,droneVelocityX,droneVelocityY,droneVelocityZ;
     private float ultrasonicHeight;
     private String information;
@@ -113,7 +113,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     private float altitude = 100.0f;
     private float mSpeed = 10.0f;
-    private float mRadius;
+    private float mRadius = 5f;
 
     private List<Waypoint> waypointList = new ArrayList<>();
 
@@ -213,7 +213,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 WindowManager.LayoutParams wmParams = new WindowManager.LayoutParams();
                 wmParams.type = WindowManager.LayoutParams.TYPE_PHONE;
                 wmParams.gravity = Gravity.END| Gravity.TOP;
-                wmParams.x = 0;// 以屏幕左上角为原点，设置x、y初始值
+                wmParams.x = 0;// 以屏幕右上角为原点，设置x、y初始值
                 wmParams.y = 50;
                 wmParams.width = 200;//WindowManager.LayoutParams.MATCH_PARENT;// 设置悬浮窗口长宽数据
                 wmParams.height = 120;//WindowManager.LayoutParams.MATCH_PARENT;
@@ -269,7 +269,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mapView = (MapView) findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);
 
-        //adapter = new ArrayAdapter<>(this,android.R.layout.simple_expandable_list_item_1,sensors);
 
         initMapView();
         initUI();
@@ -296,8 +295,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     case CURRENT_INFORMATION:
                         information = getInformation();
                         infrmationTV.setText(information);
-                        default:
-                            break;
+                    default:
+                        break;
                 }
             }
         };
@@ -423,7 +422,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             }else {
                 setResultToToast("Execution finished: " +error.getDescription());
             }
-
         }
     };
 
@@ -746,12 +744,16 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void stopWaypointMission(){
-        isFlying = false;
-        flightTime = 0;
         getWaypointMissionOperator().stopMission(new CommonCallbacks.CompletionCallback() {
             @Override
             public void onResult(DJIError error) {
-                setResultToToast("Mission Stop: " + (error == null ? "Successfully" : error.getDescription()));
+                //setResultToToast("Mission Stop: " + (error == null ? "Successfully" : error.getDescription()));
+                if (error == null){
+                    setResultToToast("Mission Stop: Successfully!");
+                    isFlying = false;
+                }else {
+                    setResultToToast("Mission Stop" + error.getDescription());
+                }
             }
         });
 
