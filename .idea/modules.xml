@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Amap_2DMap_V5.2.0_20170627/Amap_2DMap_V5.2.0_20170627.iml" filepath="$PROJECT_DIR$/Amap_2DMap_V5.2.0_20170627/Amap_2DMap_V5.2.0_20170627.iml" />
-      <module fileurl="file://$PROJECT_DIR$/GSDemo.iml" filepath="$PROJECT_DIR$/GSDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Android_Map3D_SDK_V5.6.0_20171128/Android_Map3D_SDK_V5.6.0_20171128.iml" filepath="$PROJECT_DIR$/Android_Map3D_SDK_V5.6.0_20171128/Android_Map3D_SDK_V5.6.0_20171128.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GSDemo3D.iml" filepath="$PROJECT_DIR$/GSDemo3D.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

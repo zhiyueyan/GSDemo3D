@@ -1,6 +1,10 @@
 package com.dji.GSDemo.GaodeMap;
-import com.amap.api.maps2d.CoordinateConverter;
-import com.amap.api.maps2d.model.LatLng;
+
+
+import android.content.Context;
+
+import com.amap.api.maps.CoordinateConverter;
+import com.amap.api.maps.model.LatLng;
 
 class PositionUtil {
 
@@ -59,8 +63,8 @@ class PositionUtil {
         return ret;
     }
 
-    static LatLng coordinateTransform(LatLng sourceLatLng){
-        CoordinateConverter converter  = new CoordinateConverter();
+    static LatLng coordinateTransform(LatLng sourceLatLng, Context context){
+        CoordinateConverter converter  = new CoordinateConverter(context);
         // CoordType.GPS 待转换坐标类型
         converter.from(CoordinateConverter.CoordType.GPS);
         // sourceLatLng待转换坐标点 LatLng类型

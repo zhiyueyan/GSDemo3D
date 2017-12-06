@@ -29,15 +29,15 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.amap.api.maps2d.AMap;
-import com.amap.api.maps2d.AMap.OnMapClickListener;
-import com.amap.api.maps2d.CameraUpdate;
-import com.amap.api.maps2d.CameraUpdateFactory;
-import com.amap.api.maps2d.MapView;
-import com.amap.api.maps2d.model.BitmapDescriptorFactory;
-import com.amap.api.maps2d.model.LatLng;
-import com.amap.api.maps2d.model.Marker;
-import com.amap.api.maps2d.model.MarkerOptions;
+
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdate;
+import com.amap.api.maps.CameraUpdateFactory;
+import com.amap.api.maps.MapView;
+import com.amap.api.maps.model.BitmapDescriptorFactory;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.Marker;
+import com.amap.api.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +73,7 @@ import dji.ui.widget.PreFlightStatusWidget;
 import static com.dji.GSDemo.GaodeMap.PositionUtil.checkGpsCoordination;
 import static com.dji.GSDemo.GaodeMap.PositionUtil.coordinateTransform;
 
-public class MainActivity extends FragmentActivity implements View.OnClickListener, OnMapClickListener,DrawerLayout.DrawerListener{
+public class MainActivity extends FragmentActivity implements View.OnClickListener, AMap.OnMapClickListener,DrawerLayout.DrawerListener{
 
     protected static final String TAG = "MainActivity";
     private static final int CLEAR = 1;
@@ -449,8 +449,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     // Update the drone location based on states from MCU.
     private void updateDroneLocation(){
         LatLng posBefore = new LatLng(droneLocationLat, droneLocationLng);
-        LatLng posAfter = coordinateTransform(posBefore);
-        LatLng posDotAfter = coordinateTransform(posBefore);
+        LatLng posAfter = coordinateTransform(posBefore,this);
+        LatLng posDotAfter = coordinateTransform(posBefore,this);
         //Create MarkerOptions object
         final MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(posAfter);
@@ -488,7 +488,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     private void markCurrentLocation(){
         LatLng currentLocation = new LatLng(droneLocationLat,droneLocationLng);
-        LatLng currentLocationAfter = coordinateTransform(currentLocation);
+        LatLng currentLocationAfter = coordinateTransform(currentLocation,this);
         markWaypoint(currentLocationAfter);
         Waypoint point = new Waypoint(currentLocation.latitude,currentLocation.longitude,altitude);
         missionBuild(point);
@@ -772,7 +772,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     private void cameraUpdate(){
         LatLng pos = new LatLng(droneLocationLat, droneLocationLng);
-        LatLng posAfter = coordinateTransform(pos);
+        LatLng posAfter = coordinateTransform(pos,this);
         float zoomLevel = (float) 18.0;
         CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(posAfter, zoomLevel);
         aMap.moveCamera(cu);
