@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -116,6 +117,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private float mRadius = 5f;
 
     private List<Waypoint> waypointList = new ArrayList<>();
+    private List<Float> Altitude = new ArrayList<>();
 
     public static WaypointMission.Builder waypointMissionBuilder;
     private FlightController mFlightController;
@@ -211,12 +213,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 wmManager=(WindowManager) getSystemService(Context.WINDOW_SERVICE);
                 //设置窗口属性
                 WindowManager.LayoutParams wmParams = new WindowManager.LayoutParams();
-                wmParams.type = WindowManager.LayoutParams.TYPE_PHONE;
+                wmParams.type = WindowManager.LayoutParams.TYPE_BASE_APPLICATION;
                 wmParams.gravity = Gravity.END| Gravity.TOP;
                 wmParams.x = 0;// 以屏幕右上角为原点，设置x、y初始值
                 wmParams.y = 50;
-                wmParams.width = 200;//WindowManager.LayoutParams.MATCH_PARENT;// 设置悬浮窗口长宽数据
-                wmParams.height = 120;//WindowManager.LayoutParams.MATCH_PARENT;
+                wmParams.width = 200;//WindowManager.LayoutParams.WRAP_CONTENT;// 设置悬浮窗口长宽数据
+                wmParams.height = 140;//WindowManager.LayoutParams.WRAP_CONTENT;
                 wmParams.flags= WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
                 wmParams.alpha = 1;
                 view = View.inflate(getApplicationContext(), R.layout.fpv_layout,null);
@@ -283,6 +285,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                             waypointList.clear();
                             mMarkers.clear();
                             waypointMissionBuilder.waypointList(waypointList);
+                            if (Altitude.size()>0){
+                                Altitude.clear();
+                            }
                             //updateDroneLocation();
                             setResultToToast("清除成功");
                         }else {
@@ -346,21 +351,21 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             IMUCount = mFlightController.getIMUCount();
 
             mFlightController.setStateCallback(new FlightControllerState.Callback() {
-                        @Override
-                        public void onUpdate(@NonNull FlightControllerState currentState) {
-                            //实时获取无人机传感器数据
-                            droneLocationLat = currentState.getAircraftLocation().getLatitude();
-                            droneLocationLng = currentState.getAircraftLocation().getLongitude();
-                            droneLocationHeight = currentState.getAircraftLocation().getAltitude();
-                            droneVelocityX = currentState.getVelocityX();
-                            droneVelocityY = currentState.getVelocityY();
-                            droneVelocityZ = currentState.getVelocityZ();
-                            heading = compass.getHeading();
-                            isUltrasonicUsed = currentState.isUltrasonicBeingUsed();
-                            ultrasonicHeight = currentState.getUltrasonicHeightInMeters();
-                            updateDroneLocation();
-                        }
-                    });
+                @Override
+                public void onUpdate(@NonNull FlightControllerState currentState) {
+                    //实时获取无人机传感器数据
+                    droneLocationLat = currentState.getAircraftLocation().getLatitude();
+                    droneLocationLng = currentState.getAircraftLocation().getLongitude();
+                    droneLocationHeight = currentState.getAircraftLocation().getAltitude();
+                    droneVelocityX = currentState.getVelocityX();
+                    droneVelocityY = currentState.getVelocityY();
+                    droneVelocityZ = currentState.getVelocityZ();
+                    heading = compass.getHeading();
+                    isUltrasonicUsed = currentState.isUltrasonicBeingUsed();
+                    ultrasonicHeight = currentState.getUltrasonicHeightInMeters();
+                    updateDroneLocation();
+                }
+            });
             mFlightController.setIMUStateCallback(new IMUState.Callback() {
                 @Override
                 public void onUpdate(@NonNull IMUState imuState) {
@@ -482,6 +487,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         markerOptions.position(point);
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
         Marker marker = aMap.addMarker(markerOptions);
+        setAltitude();
         //marker.setDraggable(true);
         mMarkers.put(mMarkers.size(), marker);
     }
@@ -490,6 +496,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         LatLng currentLocation = new LatLng(droneLocationLat,droneLocationLng);
         LatLng currentLocationAfter = coordinateTransform(currentLocation,this);
         markWaypoint(currentLocationAfter);
+        //setAltitude();
         Waypoint point = new Waypoint(currentLocation.latitude,currentLocation.longitude,altitude);
         missionBuild(point);
     }
@@ -663,10 +670,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         if (waypointMissionBuilder == null){
 
             waypointMissionBuilder = new WaypointMission.Builder().finishedAction(mFinishedAction)
-                                                                  .headingMode(mHeadingMode)
-                                                                  .autoFlightSpeed(mSpeed)
-                                                                  .maxFlightSpeed(mSpeed)
-                                                                  .flightPathMode(mFlightPathMode);
+                    .headingMode(mHeadingMode)
+                    .autoFlightSpeed(mSpeed)
+                    .maxFlightSpeed(mSpeed)
+                    .flightPathMode(mFlightPathMode);
 
         }else {
             waypointMissionBuilder.finishedAction(mFinishedAction)
@@ -679,10 +686,20 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         if (waypointMissionBuilder.getWaypointList().size() > 0){
 
-            for (int i=0; i< waypointMissionBuilder.getWaypointList().size(); i++){
-                waypointMissionBuilder.getWaypointList().get(i).altitude = altitude;
-                if (waypointMissionBuilder.getFlightPathMode() == WaypointMissionFlightPathMode.CURVED) {
-                    waypointMissionBuilder.getWaypointList().get(i).cornerRadiusInMeters = mRadius;
+
+            if (Altitude.size()>0){
+                for (int i=0; i< waypointMissionBuilder.getWaypointList().size(); i++){
+                    waypointMissionBuilder.getWaypointList().get(i).altitude = Altitude.get(i);
+                    if (waypointMissionBuilder.getFlightPathMode() == WaypointMissionFlightPathMode.CURVED) {
+                        waypointMissionBuilder.getWaypointList().get(i).cornerRadiusInMeters = mRadius;
+                    }
+                }
+            }else {
+                for (int i=0; i< waypointMissionBuilder.getWaypointList().size(); i++){
+                    waypointMissionBuilder.getWaypointList().get(i).altitude = altitude;
+                    if (waypointMissionBuilder.getFlightPathMode() == WaypointMissionFlightPathMode.CURVED) {
+                        waypointMissionBuilder.getWaypointList().get(i).cornerRadiusInMeters = mRadius;
+                    }
                 }
             }
             setResultToToast("Set Waypoint attitude successfully");
@@ -785,6 +802,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 if (mMarkers.size()>0) {
                     mMarkers.get(mMarkers.size() - 1).destroy();
                     mMarkers.remove(mMarkers.size() - 1);
+                    if (Altitude.size()>0) {
+                        Altitude.remove(mMarkers.size() - 1);
+                    }
                     waypointList.remove(waypointList.size()-1);
                     waypointMissionBuilder.waypointList(waypointList).waypointCount(waypointList.size());
                     updateDroneLocation();
@@ -829,6 +849,40 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         sb.append("AccelerometerState :").append(AccelerometerState).append("\n");
         sb.append("\n");
         return sb.toString();
+    }
+
+    private void setAltitude(){
+        RelativeLayout relativeLayout = (RelativeLayout) getLayoutInflater().inflate(R.layout.altitude_layout,null);
+        final EditText altitudeET = (EditText)relativeLayout.findViewById(R.id.altitudeET);
+        new AlertDialog.Builder(this)
+                .setTitle("Set Altitude")
+                .setView(relativeLayout)
+                .setPositiveButton("Finish",new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id) {
+                        if (altitudeET.getText() != null && !altitudeET.getText().toString().equals("")) {
+                            float mAltitude = Float.parseFloat(altitudeET.getText().toString());
+                            Altitude.add(mAltitude);
+                            setResultToToast("Set Successfully!");
+                        }else if (altitudeET.getText().toString().equals("")){
+                            dialog.cancel();
+                            setResultToToast("Set without altitude!");
+                        }else {
+                            setResultToToast("输入有误，请重新取点");
+                            mMarkers.get(mMarkers.size() - 1).destroy();
+                            mMarkers.remove(mMarkers.size() - 1);
+                            waypointList.remove(waypointList.size()-1);
+                            waypointMissionBuilder.waypointList(waypointList).waypointCount(waypointList.size());
+                        }
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        onRevokeClick();
+                    }
+                })
+                .create()
+                .show();
     }
 
 
