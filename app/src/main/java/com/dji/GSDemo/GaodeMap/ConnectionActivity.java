@@ -114,7 +114,7 @@ public class ConnectionActivity extends Activity implements View.OnClickListener
             mTextConnectionStatus.setText("Status: " + str + " connected");
 
             if (null != mProduct.getModel()) {
-                mTextProduct.setText("" + mProduct.getModel().getDisplayName());
+                mTextProduct.setText(mProduct.getModel().getDisplayName());
             } else {
                 mTextProduct.setText(R.string.product_information);
             }
