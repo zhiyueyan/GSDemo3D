@@ -424,6 +424,18 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             if (error == null){
                 setResultToToast("Execution finished: Success!");
                 isFlying = false;
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        add.setEnabled(true);
+                        revoke.setEnabled(true);
+                        clear.setEnabled(true);
+                        config.setEnabled(true);
+                        upload.setEnabled(true);
+                        start.setEnabled(true);
+                    }
+                });
+
             }else {
                 setResultToToast("Execution finished: " +error.getDescription());
             }
@@ -473,6 +485,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
                 if (checkGpsCoordination(droneLocationLat, droneLocationLng)) {
                     droneMarker = aMap.addMarker(markerOptions);
+                    droneMarker.setRotateAngle(Util.getRotateAngle(heading));
                     if (isFlying) {
                         markerDot = aMap.addMarker(markerOptionsDot);
                     }
@@ -748,7 +761,20 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 if (error == null){
                     setResultToToast("Mission Start: Success" );
                     isFlying = true;
+                    isAdd = false;
                     flightTime = 0;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            add.setText("Add");
+                            add.setEnabled(false);
+                            revoke.setEnabled(false);
+                            clear.setEnabled(false);
+                            config.setEnabled(false);
+                            upload.setEnabled(false);
+                            start.setEnabled(false);
+                        }
+                    });
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -779,6 +805,17 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 if (error == null){
                     setResultToToast("Mission Stop: Successfully!");
                     isFlying = false;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            add.setEnabled(true);
+                            revoke.setEnabled(true);
+                            clear.setEnabled(true);
+                            config.setEnabled(true);
+                            upload.setEnabled(true);
+                            start.setEnabled(true);
+                        }
+                    });
                 }else {
                     setResultToToast("Mission Stop" + error.getDescription());
                 }

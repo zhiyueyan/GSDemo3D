@@ -86,6 +86,14 @@ class Util {
         }
     }
 
+    static float getRotateAngle(float heading){
+        if (heading >= -180 && heading <=0){
+            return -heading;
+        }else {
+            return 180+180-heading;
+        }
+    }
+
     static int dip2px(Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
