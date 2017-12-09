@@ -568,6 +568,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private void showSettingDialog(){
         //设置航点任务
         LinearLayout wayPointSettings = (LinearLayout)getLayoutInflater().inflate(R.layout.dialog_waypointsetting, null);
+        LinearLayout altitude_Layout = (LinearLayout) wayPointSettings.findViewById(R.id.altitude_layout);
+        if (!Altitude.isEmpty()){
+            altitude_Layout.setVisibility(View.GONE);
+        }
         final TextView wpAltitude_TV = (TextView) wayPointSettings.findViewById(R.id.altitude);
         RadioGroup speed_RG = (RadioGroup) wayPointSettings.findViewById(R.id.speed);
         RadioGroup actionAfterFinished_RG = (RadioGroup) wayPointSettings.findViewById(R.id.actionAfterFinished);
