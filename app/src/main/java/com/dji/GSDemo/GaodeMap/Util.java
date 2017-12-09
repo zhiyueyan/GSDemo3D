@@ -1,6 +1,7 @@
 package com.dji.GSDemo.GaodeMap;
 
 
+import android.content.Context;
 import android.os.Environment;
 import android.util.Xml;
 
@@ -83,6 +84,11 @@ class Util {
         }else {
             return "正南方向";
         }
+    }
+
+    static int dip2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
     }
 
     static void saveXmlInfo(List<String> informations){

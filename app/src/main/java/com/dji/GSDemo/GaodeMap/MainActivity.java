@@ -216,9 +216,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 wmParams.type = WindowManager.LayoutParams.TYPE_BASE_APPLICATION;
                 wmParams.gravity = Gravity.END| Gravity.TOP;
                 wmParams.x = 0;// 以屏幕右上角为原点，设置x、y初始值
-                wmParams.y = 50;
-                wmParams.width = 200;//WindowManager.LayoutParams.WRAP_CONTENT;// 设置悬浮窗口长宽数据
-                wmParams.height = 140;//WindowManager.LayoutParams.WRAP_CONTENT;
+                wmParams.y = Util.dip2px(getApplicationContext(),40);
+                wmParams.width = Util.dip2px(getApplicationContext(),160);// 设置悬浮窗口长宽数据
+                wmParams.height = Util.dip2px(getApplicationContext(),100);//WindowManager.LayoutParams.WRAP_CONTENT;
                 wmParams.flags= WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
                 wmParams.alpha = 1;
                 view = View.inflate(getApplicationContext(), R.layout.fpv_layout,null);
