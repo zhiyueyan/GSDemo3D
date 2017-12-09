@@ -491,6 +491,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mMarkers.put(mMarkers.size(), marker);
         //如果第一个不设置高度，则认为后面的点都不单独设置高度，在config里统一设置
         if ((mMarkers.size()>1 && !Altitude.isEmpty()) || mMarkers.size() == 1) {
+            //这里不能用Alititude.get(0)来判断
+            //否则会出现空指针异常
             setAltitude();
         }
     }
@@ -569,10 +571,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         //设置航点任务
         LinearLayout wayPointSettings = (LinearLayout)getLayoutInflater().inflate(R.layout.dialog_waypointsetting, null);
         LinearLayout altitude_Layout = (LinearLayout) wayPointSettings.findViewById(R.id.altitude_layout);
+        //如果每个点都设置了高度，则这个控件不需要显示出来
         if (!Altitude.isEmpty()){
             altitude_Layout.setVisibility(View.GONE);
         }
-        final TextView wpAltitude_TV = (TextView) wayPointSettings.findViewById(R.id.altitude);
+        final EditText wpAltitude_TV = (EditText) wayPointSettings.findViewById(R.id.altitude);
         RadioGroup speed_RG = (RadioGroup) wayPointSettings.findViewById(R.id.speed);
         RadioGroup actionAfterFinished_RG = (RadioGroup) wayPointSettings.findViewById(R.id.actionAfterFinished);
         RadioGroup heading_RG = (RadioGroup) wayPointSettings.findViewById(R.id.heading);
@@ -584,6 +587,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkId) {
                 if (checkId == R.id.curved){
+                    //如果是弯曲路径，则设置半径的文本框需要显示出来
                     radius_tv.setVisibility(View.VISIBLE);
                     radius.setVisibility(View.VISIBLE);
                     mFlightPathMode = WaypointMissionFlightPathMode.CURVED;
@@ -693,6 +697,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         if (waypointMissionBuilder.getWaypointList().size() > 0){
 
+            //判断高度是否已经设置
             if (Altitude.size()>0){
                 for (int i=0; i< waypointMissionBuilder.getWaypointList().size(); i++){
                     waypointMissionBuilder.getWaypointList().get(i).altitude = Altitude.get(i);
@@ -808,6 +813,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 if (mMarkers.size()>0) {
                     mMarkers.get(mMarkers.size() - 1).destroy();
                     mMarkers.remove(mMarkers.size() - 1);
+                    //如果没有设置高度，则Altitude的list中不需要删除
                     if (!Altitude.isEmpty()) {
                         Altitude.remove(Altitude.size() - 1);
                     }

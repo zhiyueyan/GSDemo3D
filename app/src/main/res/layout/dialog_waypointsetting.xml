@@ -21,7 +21,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Waypoint Configuration"/>
+                android:text="Waypoint Configuration" />
 
             <LinearLayout
                 android:id="@+id/altitude_layout"
@@ -36,14 +36,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Altitude:"/>
+                    android:text="Altitude:" />
 
                 <EditText
                     android:id="@+id/altitude"
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:inputType="number|numberDecimal"
-                    android:maxLines="1"/>
+                    android:maxLines="1" />
             </LinearLayout>
 
             <LinearLayout
@@ -52,48 +52,42 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Speed:"/>
+                    android:text="Speed:" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
+
+            <RadioGroup
+                android:id="@+id/speed"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <RadioGroup
-                    android:id="@+id/speed"
+                <RadioButton
+                    android:id="@+id/lowSpeed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:orientation="horizontal">
+                    android:text="Low" />
 
-                    <RadioButton
-                        android:id="@+id/lowSpeed"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Low" />
+                <RadioButton
+                    android:id="@+id/MidSpeed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:text="Mid" />
 
-                    <RadioButton
-                        android:id="@+id/MidSpeed"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="50dp"
-                        android:text="Mid" />
+                <RadioButton
+                    android:id="@+id/HighSpeed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:text="High" />
+            </RadioGroup>
 
-                    <RadioButton
-                        android:id="@+id/HighSpeed"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="50dp"
-                        android:text="High" />
-                </RadioGroup>
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -110,16 +104,11 @@
                     android:text="Action After Finished:" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
                 <RadioGroup
                     android:id="@+id/actionAfterFinished"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
                     android:orientation="horizontal">
 
                     <RadioButton
@@ -153,7 +142,6 @@
                         android:text="BackTo 1st"
                         android:textSize="5pt" />
                 </RadioGroup>
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -170,16 +158,12 @@
                     android:text="Heading:" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+
 
                 <RadioGroup
                     android:id="@+id/heading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
                     android:orientation="horizontal">
 
                     <RadioButton
@@ -213,12 +197,10 @@
                         android:text="Use Waypoint"
                         android:textSize="5pt" />
                 </RadioGroup>
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp"
