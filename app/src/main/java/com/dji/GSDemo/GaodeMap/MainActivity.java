@@ -490,7 +490,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         //marker.setDraggable(true);
         mMarkers.put(mMarkers.size(), marker);
         //如果第一个不设置高度，则认为后面的点都不单独设置高度，在config里统一设置
-        if ((mMarkers.size()>1 && Altitude.get(0) != 0) || mMarkers.size() == 1) {
+        if ((mMarkers.size()>1 && !Altitude.isEmpty()) || mMarkers.size() == 1) {
             setAltitude();
         }
     }
@@ -804,7 +804,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 if (mMarkers.size()>0) {
                     mMarkers.get(mMarkers.size() - 1).destroy();
                     mMarkers.remove(mMarkers.size() - 1);
-                    if (Altitude.get(0) != null && !Altitude.get(0).toString().equals("")) {
+                    if (!Altitude.isEmpty()) {
                         Altitude.remove(Altitude.size() - 1);
                     }
                     waypointList.remove(waypointList.size()-1);
@@ -868,8 +868,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                             setResultToToast("Set Successfully!");
                         }else if (altitudeET.getText().toString().equals("")){
                             if (mMarkers.size() == 1) {//第一个点的高度
-                                Altitude.clear();
                                 setResultToToast("Set without altitude!");
+                                Altitude.clear();
                             }else {
                                 float a1 = Altitude.get(mMarkers.size()-2);
                                 Altitude.add(a1);
