@@ -74,7 +74,8 @@ import dji.ui.widget.PreFlightStatusWidget;
 import static com.dji.GSDemo.GaodeMap.PositionUtil.checkGpsCoordination;
 import static com.dji.GSDemo.GaodeMap.PositionUtil.coordinateTransform;
 
-public class MainActivity extends FragmentActivity implements View.OnClickListener, AMap.OnMapClickListener,DrawerLayout.DrawerListener{
+public class MainActivity extends FragmentActivity implements
+        View.OnClickListener, AMap.OnMapClickListener,DrawerLayout.DrawerListener,AMap.OnMarkerClickListener{
 
     protected static final String TAG = "MainActivity";
     private static final int CLEAR = 1;
@@ -118,6 +119,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     private List<Waypoint> waypointList = new ArrayList<>();
     private List<Float> Altitude = new ArrayList<>();
+    private List<LatLng> gcjPoint = new ArrayList<>();
 
     public static WaypointMission.Builder waypointMissionBuilder;
     private FlightController mFlightController;
@@ -284,6 +286,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                             aMap.clear();
                             waypointList.clear();
                             mMarkers.clear();
+                            gcjPoint.clear();
                             waypointMissionBuilder.waypointList(waypointList);
                             if (Altitude.size()>0){
                                 Altitude.clear();
@@ -485,7 +488,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
                 if (checkGpsCoordination(droneLocationLat, droneLocationLng)) {
                     droneMarker = aMap.addMarker(markerOptions);
-                    droneMarker.setRotateAngle(Util.getRotateAngle(heading));
+                    droneMarker.setRotateAngle(Util.getRotateAngle(heading));//设置图标转弯
                     if (isFlying) {
                         markerDot = aMap.addMarker(markerOptionsDot);
                     }
@@ -500,6 +503,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         markerOptions.position(point);
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
         Marker marker = aMap.addMarker(markerOptions);
+        gcjPoint.add(point);
+        marker.setTitle("Distance");
+        marker.setSnippet("Home :"+Util.format2f(Util.getDistance(point,gcjPoint.get(0)))+"m");
         //marker.setDraggable(true);
         mMarkers.put(mMarkers.size(), marker);
         //如果第一个不设置高度，则认为后面的点都不单独设置高度，在config里统一设置
@@ -735,7 +741,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         } else {
             setResultToToast("loadWaypoint failed " + error.getDescription());
         }
-
     }
 
     private void uploadWayPointMission(){
@@ -854,6 +859,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                     if (!Altitude.isEmpty()) {
                         Altitude.remove(Altitude.size() - 1);
                     }
+                    gcjPoint.remove(gcjPoint.size() - 1);
                     waypointList.remove(waypointList.size()-1);
                     waypointMissionBuilder.waypointList(waypointList).waypointCount(waypointList.size());
                     updateDroneLocation();
@@ -979,5 +985,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     public void onDrawerStateChanged(int newState) {
 
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        marker.showInfoWindow();
+        return true;
     }
 }

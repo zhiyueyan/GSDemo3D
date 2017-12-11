@@ -5,6 +5,9 @@ import android.content.Context;
 import android.os.Environment;
 import android.util.Xml;
 
+import com.amap.api.maps.AMapUtils;
+import com.amap.api.maps.model.LatLng;
+
 import org.xmlpull.v1.XmlSerializer;
 
 import java.io.BufferedWriter;
@@ -97,6 +100,10 @@ class Util {
     static int dip2px(Context context, float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
+    }
+
+    static float getDistance(LatLng latLng1, LatLng latLng2){
+        return AMapUtils.calculateLineDistance(latLng1,latLng2);
     }
 
     static void saveXmlInfo(List<String> informations){
