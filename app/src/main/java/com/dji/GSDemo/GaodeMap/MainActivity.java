@@ -234,6 +234,7 @@ public class MainActivity extends FragmentActivity implements
         if (aMap == null) {
             aMap = mapView.getMap();
             aMap.setOnMapClickListener(this);// add the listener for click for amap object
+            aMap.setOnMarkerClickListener(this);
         }
 
         LatLng nanjing = new LatLng(32.04, 118.78);
@@ -376,8 +377,6 @@ public class MainActivity extends FragmentActivity implements
                     GyroscopeState = imuState.getGyroscopeState();
                 }
             });
-
-
             flightAssistant.setVisionDetectionStateUpdatedCallback(new VisionDetectionState.Callback() {
                 @Override
                 public void onUpdate(@NonNull VisionDetectionState visionDetectionState) {
@@ -485,7 +484,6 @@ public class MainActivity extends FragmentActivity implements
                 if (droneMarker != null) {
                     droneMarker.remove();
                 }
-
                 if (checkGpsCoordination(droneLocationLat, droneLocationLng)) {
                     droneMarker = aMap.addMarker(markerOptions);
                     droneMarker.setRotateAngle(Util.getRotateAngle(heading));//设置图标转弯
@@ -505,7 +503,7 @@ public class MainActivity extends FragmentActivity implements
         Marker marker = aMap.addMarker(markerOptions);
         gcjPoint.add(point);
         marker.setTitle("Distance");
-        marker.setSnippet("Home :"+Util.format2f(Util.getDistance(point,gcjPoint.get(0)))+"m");
+        marker.setSnippet("First Point :"+Util.format2f(Util.getDistance(point,gcjPoint.get(0)))+"m");
         //marker.setDraggable(true);
         mMarkers.put(mMarkers.size(), marker);
         //如果第一个不设置高度，则认为后面的点都不单独设置高度，在config里统一设置
@@ -922,9 +920,9 @@ public class MainActivity extends FragmentActivity implements
                         }else if (altitudeET.getText().toString().equals("")){
                             if (mMarkers.size() == 1) {//第一个点的高度
                                 setResultToToast("Set without altitude!");
-                                Altitude.clear();
+                                //Altitude.clear();
                             }else {
-                                float a1 = Altitude.get(mMarkers.size()-2);
+                                float a1 = Altitude.get(Altitude.size()-1);
                                 Altitude.add(a1);
                                 //后面的点如果不设置自动认为和前一个点高度相同
                                 setResultToToast("Altitude equals the former one");
@@ -989,7 +987,11 @@ public class MainActivity extends FragmentActivity implements
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        marker.showInfoWindow();
+        if (!marker.isInfoWindowShown()) {
+            marker.showInfoWindow();
+        }else {
+            marker.hideInfoWindow();
+        }
         return true;
     }
 }
