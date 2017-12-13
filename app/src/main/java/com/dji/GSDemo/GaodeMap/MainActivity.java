@@ -784,6 +784,8 @@ public class MainActivity extends FragmentActivity implements
                             while(isFlying){
                                 info = getInformation();
                                 Util.saveInfo(info);
+                                //需要结合服务器端代码实现
+                                //Util.uploadServer(info,"192.168.1.101",6666);
                                 flightTime++;
                                 try {
                                     Thread.sleep(1000);
@@ -896,7 +898,7 @@ public class MainActivity extends FragmentActivity implements
                         +droneVelocityZ*droneVelocityZ))).append("m/s").append("\n");
         sb.append("FlightTime :").append(flightTime).append("s").append("\n");
         sb.append("IMUCount :").append(IMUCount).append("\n");
-        sb.append("UltrasonicHeight :").append(Util.format2f(ultrasonicHeight)).append("(5米)").append("\n");
+        sb.append("UltrasonicHeight :").append(Util.format2f(ultrasonicHeight)).append("(5m)").append("\n");
         sb.append("isSensorUsed :").append(isSensorUsed).append("\n");
         sb.append("isUltrasonicUsed :").append(isUltrasonicUsed).append("\n");
         sb.append("GyroscopeState :").append(GyroscopeState).append("\n");

@@ -10,6 +10,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/Android_Map3D_SDK_V5.6.0_20171128" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/lib" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
