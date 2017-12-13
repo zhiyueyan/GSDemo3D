@@ -5,7 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/Android_Map3D_SDK_V5.6.0_20171128/Android_Map3D_SDK_V5.6.0_20171128.iml" filepath="$PROJECT_DIR$/Android_Map3D_SDK_V5.6.0_20171128/Android_Map3D_SDK_V5.6.0_20171128.iml" />
       <module fileurl="file://$PROJECT_DIR$/GSDemo3D.iml" filepath="$PROJECT_DIR$/GSDemo3D.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/lib/lib.iml" filepath="$PROJECT_DIR$/lib/lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dom4j-2.0.2/dom4j-2.0.2.iml" filepath="$PROJECT_DIR$/dom4j-2.0.2/dom4j-2.0.2.iml" />
     </modules>
   </component>
 </project>

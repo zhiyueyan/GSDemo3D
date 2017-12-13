@@ -3,21 +3,22 @@ package com.dji.GSDemo.GaodeMap;
 
 import android.content.Context;
 import android.os.Environment;
-import android.util.Xml;
 
 import com.amap.api.maps.AMapUtils;
 import com.amap.api.maps.model.LatLng;
 
-import org.xmlpull.v1.XmlSerializer;
+import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
+import org.dom4j.io.XMLWriter;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+
 import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -74,21 +75,21 @@ class Util {
 
     static String getDirection(float heading) {
         if (heading == 0) {
-            return "正北方向";
+            return "North";
         } else if (heading > 0 && heading < 90) {
-            return "北偏东" + format2f(heading) + "°";
+            return "North East" + format2f(heading) + "degrees";
         } else if (heading == 90) {
-            return "正东方向";
+            return "East";
         } else if (heading > 90 && heading < 180) {
-            return "东偏南" + format2f(heading - 90) + "°";
+            return "South East" + format2f(180 - heading) + "degrees";
         } else if (heading > -90 && heading < 0) {
-            return "北偏西" + format2f(-heading) + "°";
+            return "North West" + format2f(-heading) + "degrees";
         } else if (heading > -180 && heading < -90) {
-            return "西偏南" + format2f(-heading - 90) + "°";
+            return "South West" + format2f(heading + 180) + "degrees";
         } else if (heading == -90) {
-            return "正西方向";
+            return "West";
         } else {
-            return "正南方向";
+            return "South";
         }
     }
 
@@ -109,33 +110,38 @@ class Util {
         return AMapUtils.calculateLineDistance(latLng1, latLng2);
     }
 
-    static void saveXmlInfo(List<String> informations) {
+    static void saveXmlInfo(List<String> informations,int flightTime) throws Exception {
         File file = new File(Environment.getExternalStorageDirectory(), "info.xml");
-        FileOutputStream fos;
-        XmlSerializer xmlSerializer = Xml.newSerializer();//获取对象
-        try {
-            fos = new FileOutputStream(file, true);
-            xmlSerializer.setOutput(fos, "UTF-8");//设置输出流
-            xmlSerializer.startDocument("UTF-8", true);//设置文档标签
-            xmlSerializer.startTag(null, "Informations");//设置根标签
-
-            xmlSerializer.startTag(null, "Time");
-            xmlSerializer.text(informations.get(0));
-            xmlSerializer.endTag(null, "Time");
-
-            xmlSerializer.startTag(null, "Lat");
-            xmlSerializer.text(informations.get(1));
-            xmlSerializer.endTag(null, "Lat");
-
-            xmlSerializer.startTag(null, "Lng");
-            xmlSerializer.text(informations.get(2));
-            xmlSerializer.endTag(null, "Lng");
-
-            xmlSerializer.endTag(null, "Informations");
-            xmlSerializer.endDocument();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!file.exists()) {
+            //创建根标签
+            Element root = DocumentHelper.createElement("Informations");
+            Document document = DocumentHelper.createDocument(root);
+            //跟标签添加属性
+            root.addAttribute("version", "1.0");
+            //设置输出流
+            XMLWriter xmlWriter = new XMLWriter(new FileOutputStream(file));
+            xmlWriter.write(document);
+            xmlWriter.close();
         }
+
+        //生成一个SAXReader对象
+        SAXReader reader = new SAXReader();
+        //通过reader获取一个文档
+        Document document = reader.read(file);
+        //获取跟标签
+        Element root = document.getRootElement();
+        //根标签下生成一个子标签
+        Element element1 = root.addElement("No");
+        //再生成子标签并添加内容
+        element1.addElement("Time").addText(informations.get(0));
+        element1.addElement("flightTime").addText(Integer.toString(flightTime));
+        element1.addElement("Lat").addText(informations.get(1));
+        element1.addElement("Lng").addText(informations.get(2));
+        element1.addElement("Height").addText(informations.get(3));
+        //将内容写到文件中
+        XMLWriter xmlWriter = new XMLWriter(new FileOutputStream(file));
+        xmlWriter.write(document);
+        xmlWriter.close();
     }
 
     static void uploadServer(String information, String ip, int port) {

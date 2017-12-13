@@ -1,1 +1,1 @@
-include ':app', ':Android_Map3D_SDK_V5.6.0_20171128', ':lib'
+include ':app', ':Android_Map3D_SDK_V5.6.0_20171128', ':dom4j-2.0.2'
