@@ -77,15 +77,15 @@ class Util {
         if (heading == 0) {
             return "North";
         } else if (heading > 0 && heading < 90) {
-            return "North East" + format2f(heading) + "degrees";
+            return "North East  A: " + format2f(heading);
         } else if (heading == 90) {
             return "East";
         } else if (heading > 90 && heading < 180) {
-            return "South East" + format2f(180 - heading) + "degrees";
+            return "South East  A: " + format2f(180 - heading) ;
         } else if (heading > -90 && heading < 0) {
-            return "North West" + format2f(-heading) + "degrees";
+            return "North West  A: " + format2f(-heading) ;
         } else if (heading > -180 && heading < -90) {
-            return "South West" + format2f(heading + 180) + "degrees";
+            return "South West  A: " + format2f(heading + 180) ;
         } else if (heading == -90) {
             return "West";
         } else {

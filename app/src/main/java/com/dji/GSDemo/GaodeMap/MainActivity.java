@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -39,6 +40,8 @@ import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
+import com.amap.api.maps.model.Polyline;
+import com.amap.api.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -215,10 +218,11 @@ public class MainActivity extends FragmentActivity implements
                 wmManager=(WindowManager) getSystemService(Context.WINDOW_SERVICE);
                 //设置窗口属性
                 WindowManager.LayoutParams wmParams = new WindowManager.LayoutParams();
-                wmParams.type = WindowManager.LayoutParams.TYPE_BASE_APPLICATION;
+                //android 6.0以上的系统需要开启悬浮窗权限
+                wmParams.type = WindowManager.LayoutParams.TYPE_APPLICATION;
                 wmParams.gravity = Gravity.END| Gravity.TOP;
                 wmParams.x = 0;// 以屏幕右上角为原点，设置x、y初始值
-                wmParams.y = Util.dip2px(getApplicationContext(),40);
+                wmParams.y = Util.dip2px(getApplicationContext(),30);
                 wmParams.width = Util.dip2px(getApplicationContext(),160);// 设置悬浮窗口长宽数据
                 wmParams.height = Util.dip2px(getApplicationContext(),100);//WindowManager.LayoutParams.WRAP_CONTENT;
                 wmParams.flags= WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
@@ -273,7 +277,6 @@ public class MainActivity extends FragmentActivity implements
         //初始化地图
         mapView = (MapView) findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);
-
 
         initMapView();
         initUI();
@@ -351,7 +354,7 @@ public class MainActivity extends FragmentActivity implements
 
         if (mFlightController != null) {
             compass = mFlightController.getCompass();
-            flightAssistant = mFlightController.getFlightAssistant();
+            //flightAssistant = mFlightController.getFlightAssistant();
             IMUCount = mFlightController.getIMUCount();
 
             mFlightController.setStateCallback(new FlightControllerState.Callback() {
@@ -377,12 +380,12 @@ public class MainActivity extends FragmentActivity implements
                     GyroscopeState = imuState.getGyroscopeState();
                 }
             });
-            flightAssistant.setVisionDetectionStateUpdatedCallback(new VisionDetectionState.Callback() {
-                @Override
-                public void onUpdate(@NonNull VisionDetectionState visionDetectionState) {
-                    isSensorUsed = visionDetectionState.isSensorBeingUsed();
-                }
-            });
+//            flightAssistant.setVisionDetectionStateUpdatedCallback(new VisionDetectionState.Callback() {
+//                @Override
+//                public void onUpdate(@NonNull VisionDetectionState visionDetectionState) {
+//                    isSensorUsed = visionDetectionState.isSensorBeingUsed();
+//                }
+//            });
         }
     }
 
@@ -469,14 +472,14 @@ public class MainActivity extends FragmentActivity implements
     private void updateDroneLocation(){
         LatLng posBefore = new LatLng(droneLocationLat, droneLocationLng);
         LatLng posAfter = coordinateTransform(posBefore,this);
-        LatLng posDotAfter = coordinateTransform(posBefore,this);
+        //LatLng posDotAfter = coordinateTransform(posBefore,this);
         //Create MarkerOptions object
         final MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(posAfter);
         markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.aircraft));
-        final MarkerOptions markerOptionsDot = new MarkerOptions();
-        markerOptionsDot.position(posDotAfter);
-        markerOptionsDot.icon(BitmapDescriptorFactory.fromResource(R.drawable.bluedot));
+//        final MarkerOptions markerOptionsDot = new MarkerOptions();
+//        markerOptionsDot.position(posDotAfter);
+//        markerOptionsDot.icon(BitmapDescriptorFactory.fromResource(R.drawable.bluedot));
 
         runOnUiThread(new Runnable() {
             @Override
@@ -487,9 +490,9 @@ public class MainActivity extends FragmentActivity implements
                 if (checkGpsCoordination(droneLocationLat, droneLocationLng)) {
                     droneMarker = aMap.addMarker(markerOptions);
                     droneMarker.setRotateAngle(Util.getRotateAngle(heading));//设置图标转弯
-                    if (isFlying) {
-                        markerDot = aMap.addMarker(markerOptionsDot);
-                    }
+//                    if (isFlying) {
+//                        markerDot = aMap.addMarker(markerOptionsDot);
+//                    }
                 }
             }
         });
@@ -735,6 +738,8 @@ public class MainActivity extends FragmentActivity implements
 
         DJIError error = getWaypointMissionOperator().loadMission(waypointMissionBuilder.build());
         if (error == null) {
+            Polyline polyline = aMap.addPolyline(new PolylineOptions().
+                    addAll(gcjPoint).width(8).color(Color.argb(255, 255, 165, 0)));
             setResultToToast("loadWaypoint succeeded");
         } else {
             setResultToToast("loadWaypoint failed " + error.getDescription());
@@ -783,7 +788,7 @@ public class MainActivity extends FragmentActivity implements
                         public void run() {
                             while(isFlying){
                                 info = getInformation();
-                                Util.saveInfo(info);
+                                //Util.saveInfo(info);
                                 //需要结合服务器端代码实现
                                 //Util.uploadServer(info,"192.168.1.101",6666);
                                 flightTime++;
@@ -862,7 +867,7 @@ public class MainActivity extends FragmentActivity implements
                     gcjPoint.remove(gcjPoint.size() - 1);
                     waypointList.remove(waypointList.size()-1);
                     waypointMissionBuilder.waypointList(waypointList).waypointCount(waypointList.size());
-                    updateDroneLocation();
+                    //updateDroneLocation();
                     setResultToToast("撤销成功");
                 }else {
                     setResultToToast("没有航点，无法删除");
@@ -899,7 +904,7 @@ public class MainActivity extends FragmentActivity implements
         sb.append("FlightTime :").append(flightTime).append("s").append("\n");
         sb.append("IMUCount :").append(IMUCount).append("\n");
         sb.append("UltrasonicHeight :").append(Util.format2f(ultrasonicHeight)).append("(5m)").append("\n");
-        sb.append("isSensorUsed :").append(isSensorUsed).append("\n");
+        //sb.append("isSensorUsed :").append(isSensorUsed).append("\n");
         sb.append("isUltrasonicUsed :").append(isUltrasonicUsed).append("\n");
         sb.append("GyroscopeState :").append(GyroscopeState).append("\n");
         sb.append("AccelerometerState :").append(AccelerometerState).append("\n");
