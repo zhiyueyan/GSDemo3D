@@ -123,6 +123,7 @@ public class MainActivity extends FragmentActivity implements
     private List<Waypoint> waypointList = new ArrayList<>();
     private List<Float> Altitude = new ArrayList<>();
     private List<LatLng> gcjPoint = new ArrayList<>();
+    private List<LatLng> oldAndNewPoints = new ArrayList<>();
 
     public static WaypointMission.Builder waypointMissionBuilder;
     private FlightController mFlightController;
@@ -286,8 +287,8 @@ public class MainActivity extends FragmentActivity implements
             public void handleMessage(Message msg){
                 switch(msg.what){
                     case CLEAR:
+                        aMap.clear();
                         if (mMarkers.size()>0) {
-                            aMap.clear();
                             waypointList.clear();
                             mMarkers.clear();
                             gcjPoint.clear();
@@ -472,14 +473,14 @@ public class MainActivity extends FragmentActivity implements
     private void updateDroneLocation(){
         LatLng posBefore = new LatLng(droneLocationLat, droneLocationLng);
         LatLng posAfter = coordinateTransform(posBefore,this);
-        //LatLng posDotAfter = coordinateTransform(posBefore,this);
+        LatLng posDotAfter = coordinateTransform(posBefore,this);
         //Create MarkerOptions object
         final MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(posAfter);
         markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.aircraft));
-//        final MarkerOptions markerOptionsDot = new MarkerOptions();
-//        markerOptionsDot.position(posDotAfter);
-//        markerOptionsDot.icon(BitmapDescriptorFactory.fromResource(R.drawable.bluedot));
+        final MarkerOptions markerOptionsDot = new MarkerOptions();
+        markerOptionsDot.position(posDotAfter);
+        markerOptionsDot.icon(BitmapDescriptorFactory.fromResource(R.drawable.blue));
 
         runOnUiThread(new Runnable() {
             @Override
@@ -490,9 +491,9 @@ public class MainActivity extends FragmentActivity implements
                 if (checkGpsCoordination(droneLocationLat, droneLocationLng)) {
                     droneMarker = aMap.addMarker(markerOptions);
                     droneMarker.setRotateAngle(Util.getRotateAngle(heading));//设置图标转弯
-//                    if (isFlying) {
-//                        markerDot = aMap.addMarker(markerOptionsDot);
-//                    }
+                    if (isFlying) {
+                        markerDot = aMap.addMarker(markerOptionsDot);
+                    }
                 }
             }
         });
@@ -738,8 +739,8 @@ public class MainActivity extends FragmentActivity implements
 
         DJIError error = getWaypointMissionOperator().loadMission(waypointMissionBuilder.build());
         if (error == null) {
-            Polyline polyline = aMap.addPolyline(new PolylineOptions().
-                    addAll(gcjPoint).width(8).color(Color.argb(255, 255, 165, 0)));
+//            Polyline polyline = aMap.addPolyline(new PolylineOptions().
+//                    addAll(gcjPoint).width(8).color(Color.argb(255, 255, 165, 0)));
             setResultToToast("loadWaypoint succeeded");
         } else {
             setResultToToast("loadWaypoint failed " + error.getDescription());
@@ -790,7 +791,7 @@ public class MainActivity extends FragmentActivity implements
                                 info = getInformation();
                                 //Util.saveInfo(info);
                                 //需要结合服务器端代码实现
-                                //Util.uploadServer(info,"192.168.1.101",6666);
+                                //Util.uploadServer(info,"10.14.147.120",6666);
                                 flightTime++;
                                 try {
                                     Thread.sleep(1000);
