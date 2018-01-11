@@ -491,7 +491,7 @@ public class MainActivity extends FragmentActivity implements
                 if (checkGpsCoordination(droneLocationLat, droneLocationLng)) {
                     droneMarker = aMap.addMarker(markerOptions);
                     droneMarker.setRotateAngle(Util.getRotateAngle(heading));//设置图标转弯
-                    if (isFlying) {
+                    if (isFlying && (droneVelocityX != 0 || droneVelocityY != 0)) {
                         markerDot = aMap.addMarker(markerOptionsDot);
                     }
                 }
