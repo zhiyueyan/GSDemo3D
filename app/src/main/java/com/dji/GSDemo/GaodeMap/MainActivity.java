@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -42,6 +43,7 @@ import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.Polyline;
 import com.amap.api.maps.model.PolylineOptions;
+import com.dji.TSP.TspEntrance;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,6 +86,7 @@ public class MainActivity extends FragmentActivity implements
     private static final int CLEAR = 1;
     private static final int LOCATE = 2;
     private static final int CURRENT_INFORMATION = 3;
+    //private static final int CACULATE = 4;
 
     private MapView mapView;
     private AMap aMap;
@@ -98,12 +101,14 @@ public class MainActivity extends FragmentActivity implements
     private boolean isAdd = false;
     private boolean isFlying = false;
     private boolean isDrawerOpen = false;
+    private boolean isShortest = false;
     private boolean isSensorUsed,isUltrasonicUsed;
 
     private int IMUCount;
     private int flightTime;
     private double droneLocationLat = 181, droneLocationLng = 181;
     private double droneLocationHeight;
+    private double DistanceReal,DistanceAfter;
 
 
     private float heading,droneVelocityX,droneVelocityY,droneVelocityZ;
@@ -123,7 +128,7 @@ public class MainActivity extends FragmentActivity implements
     private List<Waypoint> waypointList = new ArrayList<>();
     private List<Float> Altitude = new ArrayList<>();
     private List<LatLng> gcjPoint = new ArrayList<>();
-    private List<LatLng> oldAndNewPoints = new ArrayList<>();
+    private List<Waypoint> waypointsAfter = new ArrayList<>();
 
     public static WaypointMission.Builder waypointMissionBuilder;
     private FlightController mFlightController;
@@ -299,7 +304,8 @@ public class MainActivity extends FragmentActivity implements
                             //updateDroneLocation();
                             setResultToToast("清除成功");
                         }else {
-                            setResultToToast("没有航点，无法删除");
+                            //setResultToToast("没有航点，无法删除");
+                            clear.setClickable(false);
                         }
                     case LOCATE:
                         updateDroneLocation();
@@ -308,6 +314,10 @@ public class MainActivity extends FragmentActivity implements
                     case CURRENT_INFORMATION:
                         information = getInformation();
                         infrmationTV.setText(information);
+
+//                    case CACULATE:
+//                        waypointsAfter = TspEntrance.Main(waypointList);
+
                     default:
                         break;
                 }
@@ -601,6 +611,7 @@ public class MainActivity extends FragmentActivity implements
         RadioGroup actionAfterFinished_RG = (RadioGroup) wayPointSettings.findViewById(R.id.actionAfterFinished);
         RadioGroup heading_RG = (RadioGroup) wayPointSettings.findViewById(R.id.heading);
         RadioGroup curved_RG = (RadioGroup) wayPointSettings.findViewById(R.id.curved_or_normal);
+        RadioGroup shortest_RG = (RadioGroup) wayPointSettings.findViewById(R.id.shortest_or_normal);
         final TextView radius_tv = (TextView) wayPointSettings.findViewById(R.id.radius_tv);
         final EditText radius = (EditText) wayPointSettings.findViewById(R.id.radius);
 
@@ -616,6 +627,17 @@ public class MainActivity extends FragmentActivity implements
                     radius_tv.setVisibility(View.INVISIBLE);
                     radius.setVisibility(View.INVISIBLE);
                     mFlightPathMode = WaypointMissionFlightPathMode.NORMAL;
+                }
+            }
+        });
+
+        shortest_RG.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, @IdRes int checkId) {
+                if (checkId == R.id.shortest){
+                    isShortest = true;
+                }else {
+                    isShortest = false;
                 }
             }
         });
@@ -680,10 +702,6 @@ public class MainActivity extends FragmentActivity implements
                         if (radius.getText()!=null && !radius.getText().toString().equals("")) {
                             mRadius = Float.parseFloat(radius.getText().toString());
                         }
-                        Log.e(TAG,"altitude "+altitude);
-                        Log.e(TAG,"speed "+mSpeed);
-                        Log.e(TAG, "mFinishedAction "+mFinishedAction);
-                        Log.e(TAG, "mHeadingMode "+mHeadingMode);
                         configWayPointMission();
                     }
                 })
@@ -715,27 +733,54 @@ public class MainActivity extends FragmentActivity implements
                     .flightPathMode(mFlightPathMode);
 
         }
-
-        if (waypointMissionBuilder.getWaypointList().size() > 0){
-
-            //判断高度是否已经设置
-            if (Altitude.size()>0){
-                for (int i=0; i< waypointMissionBuilder.getWaypointList().size(); i++){
-                    waypointMissionBuilder.getWaypointList().get(i).altitude = Altitude.get(i);
-                    if (waypointMissionBuilder.getFlightPathMode() == WaypointMissionFlightPathMode.CURVED) {
-                        waypointMissionBuilder.getWaypointList().get(i).cornerRadiusInMeters = mRadius;
-                    }
-                }
-            }else {
-                for (int i=0; i< waypointMissionBuilder.getWaypointList().size(); i++){
-                    waypointMissionBuilder.getWaypointList().get(i).altitude = altitude;
-                    if (waypointMissionBuilder.getFlightPathMode() == WaypointMissionFlightPathMode.CURVED) {
-                        waypointMissionBuilder.getWaypointList().get(i).cornerRadiusInMeters = mRadius;
-                    }
-                }
+        if (isShortest){
+            waypointsAfter = TspEntrance.Main(waypointList);
+            for (int i =0; i<waypointList.size()-1;i++){
+                DistanceReal += Util.getDistance(gcjPoint.get(i),gcjPoint.get(i+1));
+                LatLng latLng1 = new LatLng(waypointsAfter.get(i).coordinate.getLatitude(),
+                        waypointsAfter.get(i).coordinate.getLongitude());
+                LatLng latLng2 = new LatLng(waypointsAfter.get(i+1).coordinate.getLatitude(),
+                        waypointsAfter.get(i+1).coordinate.getLongitude());
+                DistanceAfter += Util.getDistance(latLng1,latLng2);
             }
-            setResultToToast("Set Waypoint attitude successfully");
+            DistanceReal = DistanceReal + Util.getDistance(gcjPoint.get(gcjPoint.size()-1),gcjPoint.get(0));
+            LatLng latLngAfterFirst = new LatLng(waypointsAfter.get(0).coordinate.getLatitude(),
+                    waypointsAfter.get(0).coordinate.getLongitude());
+            LatLng latLngAfterEnd = new LatLng(waypointsAfter.get(waypointsAfter.size()-1).coordinate.getLatitude(),
+                    waypointsAfter.get(waypointsAfter.size()-1).coordinate.getLongitude());
+            DistanceAfter = DistanceAfter + Util.getDistance(latLngAfterFirst,latLngAfterEnd);
+            setResultToToast("原来距离为 ："+ Util.format2f(DistanceReal));
+            setResultToToast("规划后距离为 ："+ Util.format2f(DistanceAfter));
+
+            if (waypointMissionBuilder != null){
+                waypointMissionBuilder.waypointList(waypointsAfter).waypointCount(waypointsAfter.size());
+            }else {
+                waypointMissionBuilder = new WaypointMission.Builder();
+                waypointMissionBuilder.waypointList(waypointsAfter).waypointCount(waypointsAfter.size());
+            }
+
+            if (waypointMissionBuilder.getWaypointList().size() > 0){
+                //判断高度是否已经设置
+                if (Altitude.size()>0){
+                    for (int i=0; i< waypointMissionBuilder.getWaypointList().size(); i++){
+                        waypointMissionBuilder.getWaypointList().get(i).altitude = Altitude.get(i);
+                        if (waypointMissionBuilder.getFlightPathMode() == WaypointMissionFlightPathMode.CURVED) {
+                            waypointMissionBuilder.getWaypointList().get(i).cornerRadiusInMeters = mRadius;
+                        }
+                    }
+                }else {
+                    for (int i=0; i< waypointMissionBuilder.getWaypointList().size(); i++){
+                        waypointMissionBuilder.getWaypointList().get(i).altitude = altitude;
+                        if (waypointMissionBuilder.getFlightPathMode() == WaypointMissionFlightPathMode.CURVED) {
+                            waypointMissionBuilder.getWaypointList().get(i).cornerRadiusInMeters = mRadius;
+                        }
+                    }
+                }
+                setResultToToast("Set Waypoint attitude successfully");
+            }
         }
+
+
 
         DJIError error = getWaypointMissionOperator().loadMission(waypointMissionBuilder.build());
         if (error == null) {
@@ -871,7 +916,8 @@ public class MainActivity extends FragmentActivity implements
                     //updateDroneLocation();
                     setResultToToast("撤销成功");
                 }else {
-                    setResultToToast("没有航点，无法删除");
+                    //setResultToToast("没有航点，无法删除");
+                    revoke.setClickable(false);
                 }
             }
         });

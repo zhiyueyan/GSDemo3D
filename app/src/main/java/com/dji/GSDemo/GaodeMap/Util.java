@@ -24,7 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-class Util {
+public class Util {
     static String format7f(double a) {
         return String.format("%.7f", a);
     }
@@ -51,7 +51,9 @@ class Util {
             e.printStackTrace();
         } finally {
             try {
-                fos.close();
+                if (fos != null) {
+                    fos.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -106,7 +108,7 @@ class Util {
         return (int) (dpValue * scale + 0.5f);
     }
 
-    static float getDistance(LatLng latLng1, LatLng latLng2) {
+    public static float getDistance(LatLng latLng1, LatLng latLng2) {
         return AMapUtils.calculateLineDistance(latLng1, latLng2);
     }
 
