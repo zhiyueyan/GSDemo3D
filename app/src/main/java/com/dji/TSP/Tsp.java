@@ -9,9 +9,9 @@ import dji.common.mission.waypoint.Waypoint;
 
 class Tsp {
     private double[][] graph;
-    HashMap<Integer, ArrayList<Integer>> idtoset = new HashMap<Integer, ArrayList<Integer>>();
+    private HashMap<Integer, ArrayList<Integer>> idtoset = new HashMap<>();
     // get subset by id
-    HashMap<ArrayList<Integer>, Integer> settoid = new HashMap<ArrayList<Integer>, Integer>();
+    private HashMap<ArrayList<Integer>, Integer> settoid = new HashMap<>();
 
     // get id by subset
     Tsp(double[][] graph) {
@@ -26,10 +26,10 @@ class Tsp {
     List<Waypoint> DP(List<Waypoint> WaypointList) {
         int n = graph.length;
         int[] vertex = new int[n - 1];
-        int vertexid = 1;
+        int vertexId = 1;
         for (int i = 0; i < vertex.length; i++) {
-            vertex[i] = vertexid;
-            vertexid++;
+            vertex[i] = vertexId;
+            vertexId++;
         }
         getsubsets(vertex);
         double[][] D = new double[n][settoid.size()];// To record the distance
@@ -106,7 +106,7 @@ class Tsp {
      */
     private List<Waypoint> generateOpttour(int[][] P, ArrayList<Integer> V, List<Waypoint> WaypointList) {
         List<Waypoint> newWaypointList = new ArrayList<>();
-        String path = "1->";
+        //String path = "1->";
         newWaypointList.add(WaypointList.get(0));
         ArrayList<Integer> Set = V;
         int start = 0;
@@ -114,12 +114,12 @@ class Tsp {
             int id = settoid.get(Set);
             String vertex = String.valueOf(P[start][id] + 1);
             newWaypointList.add(WaypointList.get(Integer.parseInt(vertex)-1));
-            path += vertex + "->";
+            //path += vertex + "->";
             Set = remove(Set, P[start][id]);
             start = P[start][id];
         }
-        path += "1";
-        System.out.println(path);
+        //path += "1";
+        //System.out.println(path);
         return newWaypointList;
     }
 
@@ -162,7 +162,7 @@ class Tsp {
      * @return list after removing n
      */
     private ArrayList<Integer> remove(ArrayList<Integer> src, int n) {
-        ArrayList<Integer> dest = new ArrayList<Integer>();
+        ArrayList<Integer> dest = new ArrayList<>();
         //int j = 0;
         for (int i = 0; i < src.size(); i++) {
             int vertex = src.get(i);

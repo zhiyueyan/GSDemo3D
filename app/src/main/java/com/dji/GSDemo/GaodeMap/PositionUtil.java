@@ -6,6 +6,11 @@ import android.content.Context;
 import com.amap.api.maps.CoordinateConverter;
 import com.amap.api.maps.model.LatLng;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import dji.common.mission.waypoint.Waypoint;
+
 class PositionUtil {
 
     private static double pi = 3.1415926535897932384626;
@@ -75,5 +80,16 @@ class PositionUtil {
 
     static boolean checkGpsCoordination(double latitude, double longitude) {
         return (latitude > -90 && latitude < 90 && longitude > -180 && longitude < 180) && (latitude != 0f && longitude != 0f);
+    }
+
+    static List<LatLng> waypoint2latlng(List<Waypoint> waypointList){//Waypoint 转化为 Latlng
+        List<LatLng> waypointLatlngs = new ArrayList<>();
+        double Lat,Lng;
+        for (int i = 0; i<waypointList.size();i++){
+            Lat = waypointList.get(i).coordinate.getLatitude();
+            Lng = waypointList.get(i).coordinate.getLongitude();
+            waypointLatlngs.add(new LatLng(Lat,Lng));
+        }
+        return waypointLatlngs;
     }
 }

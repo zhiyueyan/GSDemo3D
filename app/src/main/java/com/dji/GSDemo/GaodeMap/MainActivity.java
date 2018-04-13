@@ -733,7 +733,7 @@ public class MainActivity extends FragmentActivity implements
                     .flightPathMode(mFlightPathMode);
 
         }
-        if (isShortest){
+        if (isShortest){//如果选择最短路径额话
             waypointsAfter = TspEntrance.Main(waypointList);
             for (int i =0; i<waypointList.size()-1;i++){
                 DistanceReal += Util.getDistance(gcjPoint.get(i),gcjPoint.get(i+1));
@@ -743,14 +743,14 @@ public class MainActivity extends FragmentActivity implements
                         waypointsAfter.get(i+1).coordinate.getLongitude());
                 DistanceAfter += Util.getDistance(latLng1,latLng2);
             }
-            DistanceReal = DistanceReal + Util.getDistance(gcjPoint.get(gcjPoint.size()-1),gcjPoint.get(0));
+            DistanceReal = DistanceReal + Util.getDistance(gcjPoint.get(gcjPoint.size()-1),gcjPoint.get(0));//起点和终点的距离
             LatLng latLngAfterFirst = new LatLng(waypointsAfter.get(0).coordinate.getLatitude(),
                     waypointsAfter.get(0).coordinate.getLongitude());
             LatLng latLngAfterEnd = new LatLng(waypointsAfter.get(waypointsAfter.size()-1).coordinate.getLatitude(),
                     waypointsAfter.get(waypointsAfter.size()-1).coordinate.getLongitude());
             DistanceAfter = DistanceAfter + Util.getDistance(latLngAfterFirst,latLngAfterEnd);
-            setResultToToast("原来距离为 ："+ Util.format2f(DistanceReal));
-            setResultToToast("规划后距离为 ："+ Util.format2f(DistanceAfter));
+            setResultToToast("原来距离为 ："+ Util.format2f(DistanceReal) +"m" + "\n" +
+                    "规划后距离为 ："+ Util.format2f(DistanceAfter)+"m");
 
             if (waypointMissionBuilder != null){
                 waypointMissionBuilder.waypointList(waypointsAfter).waypointCount(waypointsAfter.size());
@@ -758,29 +758,27 @@ public class MainActivity extends FragmentActivity implements
                 waypointMissionBuilder = new WaypointMission.Builder();
                 waypointMissionBuilder.waypointList(waypointsAfter).waypointCount(waypointsAfter.size());
             }
-
-            if (waypointMissionBuilder.getWaypointList().size() > 0){
-                //判断高度是否已经设置
-                if (Altitude.size()>0){
-                    for (int i=0; i< waypointMissionBuilder.getWaypointList().size(); i++){
-                        waypointMissionBuilder.getWaypointList().get(i).altitude = Altitude.get(i);
-                        if (waypointMissionBuilder.getFlightPathMode() == WaypointMissionFlightPathMode.CURVED) {
-                            waypointMissionBuilder.getWaypointList().get(i).cornerRadiusInMeters = mRadius;
-                        }
-                    }
-                }else {
-                    for (int i=0; i< waypointMissionBuilder.getWaypointList().size(); i++){
-                        waypointMissionBuilder.getWaypointList().get(i).altitude = altitude;
-                        if (waypointMissionBuilder.getFlightPathMode() == WaypointMissionFlightPathMode.CURVED) {
-                            waypointMissionBuilder.getWaypointList().get(i).cornerRadiusInMeters = mRadius;
-                        }
-                    }
-                }
-                setResultToToast("Set Waypoint attitude successfully");
-            }
         }
 
-
+        if (waypointMissionBuilder.getWaypointList().size() > 0){
+            //判断高度是否已经设置
+            if (Altitude.size()>0){
+                for (int i=0; i< waypointMissionBuilder.getWaypointList().size(); i++){
+                    waypointMissionBuilder.getWaypointList().get(i).altitude = Altitude.get(i);
+                    if (waypointMissionBuilder.getFlightPathMode() == WaypointMissionFlightPathMode.CURVED) {
+                        waypointMissionBuilder.getWaypointList().get(i).cornerRadiusInMeters = mRadius;
+                    }
+                }
+            }else {
+                for (int i=0; i< waypointMissionBuilder.getWaypointList().size(); i++){
+                    waypointMissionBuilder.getWaypointList().get(i).altitude = altitude;
+                    if (waypointMissionBuilder.getFlightPathMode() == WaypointMissionFlightPathMode.CURVED) {
+                        waypointMissionBuilder.getWaypointList().get(i).cornerRadiusInMeters = mRadius;
+                    }
+                }
+            }
+            setResultToToast("Set Waypoint attitude successfully");
+        }
 
         DJIError error = getWaypointMissionOperator().loadMission(waypointMissionBuilder.build());
         if (error == null) {
