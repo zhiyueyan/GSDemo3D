@@ -11,7 +11,7 @@ import java.util.List;
 
 import dji.common.mission.waypoint.Waypoint;
 
-class PositionUtil {
+public class PositionUtil {
 
     private static double pi = 3.1415926535897932384626;
     private static double a = 6378245.0;
@@ -82,14 +82,28 @@ class PositionUtil {
         return (latitude > -90 && latitude < 90 && longitude > -180 && longitude < 180) && (latitude != 0f && longitude != 0f);
     }
 
-    static List<LatLng> waypoint2latlng(List<Waypoint> waypointList){//Waypoint 转化为 Latlng
-        List<LatLng> waypointLatlngs = new ArrayList<>();
-        double Lat,Lng;
-        for (int i = 0; i<waypointList.size();i++){
-            Lat = waypointList.get(i).coordinate.getLatitude();
-            Lng = waypointList.get(i).coordinate.getLongitude();
-            waypointLatlngs.add(new LatLng(Lat,Lng));
-        }
-        return waypointLatlngs;
+    public static double get3Ddistance(Waypoint waypoint1, Waypoint waypoint2){
+        double distance3D;
+        double distance2D = get2Ddistance(waypoint1,waypoint2);
+        double altitude1,altitude2;
+        double altitudeDifference;
+        altitude1 = waypoint1.altitude;
+        altitude2 = waypoint2.altitude;
+        altitudeDifference = altitude1 - altitude2;
+        distance3D = Math.sqrt(distance2D * distance2D +
+                altitudeDifference * altitudeDifference);
+        return distance3D;
     }
+
+    static double get2Ddistance(Waypoint waypoint1, Waypoint waypoint2){
+        double distance;
+        LatLng latLng1,latLng2;
+        latLng1 = new LatLng(waypoint1.coordinate.getLatitude(),waypoint1.coordinate.getLongitude());
+        latLng2 = new LatLng(waypoint2.coordinate.getLatitude(),waypoint2.coordinate.getLongitude());
+        distance = Util.getDistance(latLng1,latLng2);
+
+        return distance;
+    }
+
+
 }

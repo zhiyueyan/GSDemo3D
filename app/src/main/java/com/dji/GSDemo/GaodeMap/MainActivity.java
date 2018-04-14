@@ -733,22 +733,16 @@ public class MainActivity extends FragmentActivity implements
                     .flightPathMode(mFlightPathMode);
 
         }
-        if (isShortest){//如果选择最短路径额话
+        if (isShortest){//如果选择最短路径的话
             waypointsAfter = TspEntrance.Main(waypointList);
             for (int i =0; i<waypointList.size()-1;i++){
-                DistanceReal += Util.getDistance(gcjPoint.get(i),gcjPoint.get(i+1));
-                LatLng latLng1 = new LatLng(waypointsAfter.get(i).coordinate.getLatitude(),
-                        waypointsAfter.get(i).coordinate.getLongitude());
-                LatLng latLng2 = new LatLng(waypointsAfter.get(i+1).coordinate.getLatitude(),
-                        waypointsAfter.get(i+1).coordinate.getLongitude());
-                DistanceAfter += Util.getDistance(latLng1,latLng2);
+                DistanceReal += PositionUtil.get3Ddistance(waypointList.get(i),waypointList.get(i+1));
+                DistanceAfter += PositionUtil.get3Ddistance(waypointsAfter.get(i),waypointsAfter.get(i+1));
             }
-            DistanceReal = DistanceReal + Util.getDistance(gcjPoint.get(gcjPoint.size()-1),gcjPoint.get(0));//起点和终点的距离
-            LatLng latLngAfterFirst = new LatLng(waypointsAfter.get(0).coordinate.getLatitude(),
-                    waypointsAfter.get(0).coordinate.getLongitude());
-            LatLng latLngAfterEnd = new LatLng(waypointsAfter.get(waypointsAfter.size()-1).coordinate.getLatitude(),
-                    waypointsAfter.get(waypointsAfter.size()-1).coordinate.getLongitude());
-            DistanceAfter = DistanceAfter + Util.getDistance(latLngAfterFirst,latLngAfterEnd);
+            DistanceReal = DistanceReal + PositionUtil.get2Ddistance(waypointList.get(0),
+                    waypointList.get(waypointList.size()-1));
+            DistanceAfter = DistanceAfter + PositionUtil.get2Ddistance(waypointsAfter.get(0),
+                    waypointsAfter.get(waypointsAfter.size()-1));
             setResultToToast("原来距离为 ："+ Util.format2f(DistanceReal) +"m" + "\n" +
                     "规划后距离为 ："+ Util.format2f(DistanceAfter)+"m");
 

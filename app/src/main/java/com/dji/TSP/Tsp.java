@@ -92,7 +92,7 @@ class Tsp {
 //			;
         D[0][vminusv0id] = min;
 
-        return generateOpttour(P, Vminusv0,WaypointList);
+        return generateOpttour(P, Vminusv0, WaypointList);
         //return D[0][vminusv0id];
     }
 
@@ -112,8 +112,10 @@ class Tsp {
         int start = 0;
         while (!Set.isEmpty()) {
             int id = settoid.get(Set);
-            String vertex = String.valueOf(P[start][id] + 1);
-            newWaypointList.add(WaypointList.get(Integer.parseInt(vertex)-1));
+//            String vertex = String.valueOf(P[start][id] + 1);
+            int vertex = P[start][id];
+//            newWaypointList.add(WaypointList.get(Integer.parseInt(vertex)-1));
+            newWaypointList.add(WaypointList.get(vertex));//从原来的WaypointList中取出Waypoint并添加到新的List中
             //path += vertex + "->";
             Set = remove(Set, P[start][id]);
             start = P[start][id];
