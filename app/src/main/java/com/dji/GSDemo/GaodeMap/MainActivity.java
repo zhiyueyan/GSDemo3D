@@ -301,6 +301,11 @@ public class MainActivity extends FragmentActivity implements
                             if (Altitude.size()>0){
                                 Altitude.clear();
                             }
+                            if (waypointsAfter.size()>0){
+                                waypointsAfter.clear();
+                            }
+                            DistanceReal = 0;
+                            DistanceAfter = 0;
                             //updateDroneLocation();
                             setResultToToast("清除成功");
                         }else {
@@ -703,6 +708,8 @@ public class MainActivity extends FragmentActivity implements
                             mRadius = Float.parseFloat(radius.getText().toString());
                         }
                         configWayPointMission();
+                        DistanceAfter = 0;
+                        DistanceReal = 0;
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

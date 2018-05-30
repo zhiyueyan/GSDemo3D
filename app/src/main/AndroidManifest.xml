@@ -91,7 +91,7 @@
 
         </activity>
         <activity android:name=".MainActivity"
-            android:screenOrientation="reverseLandscape">
+            android:screenOrientation="sensorLandscape">
 
         </activity>
     </application>

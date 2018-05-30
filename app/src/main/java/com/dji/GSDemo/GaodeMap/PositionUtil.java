@@ -95,7 +95,7 @@ public class PositionUtil {
         return distance3D;
     }
 
-    static double get2Ddistance(Waypoint waypoint1, Waypoint waypoint2){
+    public static double get2Ddistance(Waypoint waypoint1, Waypoint waypoint2){
         double distance;
         LatLng latLng1,latLng2;
         latLng1 = new LatLng(waypoint1.coordinate.getLatitude(),waypoint1.coordinate.getLongitude());

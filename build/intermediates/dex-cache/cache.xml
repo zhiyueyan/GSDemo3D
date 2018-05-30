@@ -3,174 +3,174 @@
 
     <item
         is-multidex="true"
-        jar="C:\Users\Zhiyy\.android\build-cache\5deca7ab3af4b3db2a6b9a977eae4f7fd0208e57\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="cd7951e04cfb9a8bf008d544a478d9a8d8192d38">
-        <dex dex="C:\Users\Zhiyy\AndroidStudioProjects\GSDemo3D\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_98294a61d8c957a24cdd8d82361630e16d91c1b2\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="D:\Android\AS_SDK\extras\android\m2repository\com\android\support\support-annotations\25.1.1\support-annotations-25.1.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="b59b6ee8d6ecc03e672d253800430343493a6ed8">
-        <dex dex="C:\Users\Zhiyy\AndroidStudioProjects\GSDemo3D\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-25.1.1_d0917fce73869c1502eba33ac593fce71ed3d08a\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Zhiyy\.android\build-cache\20bac5d85994e80fbf25e6113eb1cabc2be54c91\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="c9649557905bf7a80fca9e0d54cbcb7662627860">
-        <dex dex="C:\Users\Zhiyy\AndroidStudioProjects\GSDemo3D\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_341f99dde1665b71d4af9a287184eafac7cafc63\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Zhiyy\.android\build-cache\3e911839b4a37d5377e03363adb8d7e624a52985\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
-        <dex dex="C:\Users\Zhiyy\AndroidStudioProjects\GSDemo3D\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_00f02c157f0b39b5bcf9ee1d84e202228a960105\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Zhiyy\.android\build-cache\77a9eb33139f81030de7309bd34a3829bdd22fc0\output\jars\classes.jar"
+        jar="/Users/zhiyy/.android/build-cache/d63570face2a83d8b03a5920d7e1ad7168049525/output/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
         sha1="0fb891e8f0cfba0513043a7bb357513d229ca2cd">
-        <dex dex="C:\Users\Zhiyy\AndroidStudioProjects\GSDemo3D\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_0b06d3e64ae80bdbbd6c50a25718ebabf1a4fa8e\classes.dex" />
+        <dex dex="/Users/zhiyy/AndroidStudioProjects/GSDemo3D/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_5c6af878c9e5ee8f8e8df6ef511e786051ad31bd/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Zhiyy\AndroidStudioProjects\GSDemo3D\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="efed130b1e0fe7fa91be5cca2ef8f5bcaefd1ce6">
-        <dex dex="C:\Users\Zhiyy\AndroidStudioProjects\GSDemo3D\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_d098b527ab3bd12c2ca1b62e881146ff0410b820\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Zhiyy\AndroidStudioProjects\GSDemo3D\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
-        <dex dex="C:\Users\Zhiyy\AndroidStudioProjects\GSDemo3D\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_37194082b376fddfdd5fa52cee4e435df864cbbb\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Zhiyy\.android\build-cache\50024f7821cd28242db34f0e9f790fde5ca3ea68\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="ecb496cc08dd52551fc5ec6db3bc0632e95a89bb">
-        <dex dex="C:\Users\Zhiyy\AndroidStudioProjects\GSDemo3D\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_0f5aa45e031d10bc62c52f375f00e78d31b0826d\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Zhiyy\.android\build-cache\8b3e3fb5ff6ef1fe46b6b839044735fac5ae201c\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="78ea232052df889856dcb7b7b542707c89bb3bfb">
-        <dex dex="C:\Users\Zhiyy\AndroidStudioProjects\GSDemo3D\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_bcbb94d886c8280b2bb85778d67ead072e3283d5\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Zhiyy\.android\build-cache\ba0452d6eb2c9ee6d3a0b474abf5af25a7db9b7c\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="0d191c1a09e4892d059e5ce749e4ad4e08129e35">
-        <dex dex="C:\Users\Zhiyy\AndroidStudioProjects\GSDemo3D\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_0d554bd60453cf4f2254c36869777f798db82c34\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Zhiyy\.android\build-cache\4bfb0f6b3f01786efcf28e315e090dfc232f032c\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="C:\Users\Zhiyy\AndroidStudioProjects\GSDemo3D\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_c08cee049435d8278625abf19ebd264a415f9118\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Zhiyy\.android\build-cache\a9bbc3ad0e903c2e9a0f8d81bbbd9263e868daf0\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="7bde4c34162092e0a77e7f12dc85ed77c484cf5c">
-        <dex dex="C:\Users\Zhiyy\AndroidStudioProjects\GSDemo3D\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_30aa2b84e8e1f8faffbb4d839608aed3c93c5c09\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Zhiyy\.android\build-cache\9c71a3a24a5399a10e8990219115b83f4fb4f64b\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="bf316130fa76e3549712cd6406b948ebfb4239a3">
-        <dex dex="C:\Users\Zhiyy\AndroidStudioProjects\GSDemo3D\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_8a7dc0bef56b67d51b49572ab7f3e3e10e795eec\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Zhiyy\.android\build-cache\d8c2df1f693404a6283662aba7f7252e8236acbd\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="a510df52da6402338b2debf32e637277de18c293">
-        <dex dex="C:\Users\Zhiyy\AndroidStudioProjects\GSDemo3D\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_77a54a95e0f7a0f1439e68956ab1b6ee12fbd318\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Zhiyy\.android\build-cache\5e6af5a2e2c84aa36c9de270492f4f6d2c8e2327\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="02741d05d4b697fba5e279e9881aaa1da0ca7c7f">
-        <dex dex="C:\Users\Zhiyy\AndroidStudioProjects\GSDemo3D\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_a25f0c1b4015105e0e0d0d73ad44761c9a1af088\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Zhiyy\.android\build-cache\52348f732144fd3f2e3d6a8cf0b489003ed1c560\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="3198f039f32f3573792116109fc95e8cb1e3056e">
-        <dex dex="C:\Users\Zhiyy\AndroidStudioProjects\GSDemo3D\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_674c8020b2225b9884b4e033203be6376aa0683d\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Zhiyy\.android\build-cache\2c33d1f9248cef578dc93bc2a29ce6e37aa644e8\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="e2719c102dca3a7a5b02ce07f769362da6ddb4ab">
-        <dex dex="C:\Users\Zhiyy\AndroidStudioProjects\GSDemo3D\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_4d8423a58dd2415c9d3be3c519e6413dac677d9b\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Zhiyy\.android\build-cache\71ec519802ed3f0a15d23b2f6abf94d4fabaa1bd\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="15b049fedbd8e3926bf99d9e45dfc9b2a1043bb9">
-        <dex dex="C:\Users\Zhiyy\AndroidStudioProjects\GSDemo3D\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_1c593868f9327f4958cb301ef929f9804881470e\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Zhiyy\.android\build-cache\f02c46429b521121bd0fd3216d7d72cb3b6c19ca\output\jars\classes.jar"
+        jar="/Users/zhiyy/.android/build-cache/f32ba01d9edd8a5bfbe391eb87f4753e67e8329e/output/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
         sha1="3e04ac8ca644ea7baddf6fdcf72e15c79e9df94a">
-        <dex dex="C:\Users\Zhiyy\AndroidStudioProjects\GSDemo3D\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_ba1cc269bc986fdc16d27ed44c4e2b86d799e716\classes.dex" />
+        <dex dex="/Users/zhiyy/AndroidStudioProjects/GSDemo3D/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_4322930c809781664fc44d7aaaaa9740260766dc/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/zhiyy/.android/build-cache/258681b48a5c95d718868510549f8ce8984f502f/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a510df52da6402338b2debf32e637277de18c293">
+        <dex dex="/Users/zhiyy/AndroidStudioProjects/GSDemo3D/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_976d02f91b3e501d6cf92019c754cac941812ee8/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/zhiyy/.android/build-cache/294a19882416f2747ae6cfcc13addbe5ae701f6e/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="cd7951e04cfb9a8bf008d544a478d9a8d8192d38">
+        <dex dex="/Users/zhiyy/AndroidStudioProjects/GSDemo3D/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_aba06ab0a41faea21d97d3f3a799e44d89ba451d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/zhiyy/.android/build-cache/5330ceed369ad54f6d7788aeac83be148d581c8d/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="bf316130fa76e3549712cd6406b948ebfb4239a3">
+        <dex dex="/Users/zhiyy/AndroidStudioProjects/GSDemo3D/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_325a9d161ec8e99d417cb79eca4b1f59f156a26a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/zhiyy/.android/build-cache/966f8b1aa87817f3b9d9cfd589a6b3ee3a3684e7/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="02741d05d4b697fba5e279e9881aaa1da0ca7c7f">
+        <dex dex="/Users/zhiyy/AndroidStudioProjects/GSDemo3D/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_a120723b266c7b6cc96607b9db5431d31b7d60ba/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/zhiyy/.android/build-cache/05c014362c640e02a0c536e56af6b8b6b1f08511/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="78ea232052df889856dcb7b7b542707c89bb3bfb">
+        <dex dex="/Users/zhiyy/AndroidStudioProjects/GSDemo3D/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_6c14889dcadf144ca73c796e53c8cc7aa4467600/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/zhiyy/.android/build-cache/26556815d281382a661a6f5fc3ecfea2d7e567ce/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e2719c102dca3a7a5b02ce07f769362da6ddb4ab">
+        <dex dex="/Users/zhiyy/AndroidStudioProjects/GSDemo3D/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_298635371f03d263ebebc8c95bd55b6cfd7a5be9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/zhiyy/AndroidStudioProjects/GSDemo3D/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="0c1434325f0615a3ab554ff1f10f2ae7ee19ab24">
+        <dex dex="/Users/zhiyy/AndroidStudioProjects/GSDemo3D/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_11dcd0fe6db20e88c6d84f414abc294986f7eb83/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/zhiyy/.android/build-cache/27baa0f60776f655b7cacc06ae4ad1fe74798cec/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3198f039f32f3573792116109fc95e8cb1e3056e">
+        <dex dex="/Users/zhiyy/AndroidStudioProjects/GSDemo3D/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_9735176fce6f936f8a2ebb1f18e8f7eade54226b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/zhiyy/.android/build-cache/524688da5ab4babcac6cdb5515234a8adb7b1a13/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="15b049fedbd8e3926bf99d9e45dfc9b2a1043bb9">
+        <dex dex="/Users/zhiyy/AndroidStudioProjects/GSDemo3D/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_e5673cf74bed9a69985f98d2d70e4e0ca602129c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/zhiyy/.android/build-cache/f1c5790de24feff43bb070f3570d6587e7fc9aa7/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="0d191c1a09e4892d059e5ce749e4ad4e08129e35">
+        <dex dex="/Users/zhiyy/AndroidStudioProjects/GSDemo3D/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_33803b759e668148466873d867447cd546e61047/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/zhiyy/.android/build-cache/4c42e0e011e76e21f01307dfef79390f3064eea4/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="7bde4c34162092e0a77e7f12dc85ed77c484cf5c">
+        <dex dex="/Users/zhiyy/AndroidStudioProjects/GSDemo3D/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_f8e87efd9af83e711ef50cb64350cfb79c716452/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/zhiyy/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.1.1/support-annotations-25.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b59b6ee8d6ecc03e672d253800430343493a6ed8">
+        <dex dex="/Users/zhiyy/AndroidStudioProjects/GSDemo3D/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-25.1.1_7fa06645fe0490719c3ee64480b6a05a877abc5b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/zhiyy/.android/build-cache/bc52639437b8e53a9562d285c3d6727a905d0d98/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c9649557905bf7a80fca9e0d54cbcb7662627860">
+        <dex dex="/Users/zhiyy/AndroidStudioProjects/GSDemo3D/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_6c39018ebccdd944a09b3dca49a9fcc800ab4444/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/zhiyy/.android/build-cache/eeb0861effdee40f8f145c044d773c4a17f0eb91/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
+        <dex dex="/Users/zhiyy/AndroidStudioProjects/GSDemo3D/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_0f68611d802de51744a3a1db7fd5b3ac222ee8f9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/zhiyy/.android/build-cache/5fe4a8950d407d3661547489fa2075caa41a2b34/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/zhiyy/AndroidStudioProjects/GSDemo3D/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_b7c1c223920ed198b986f132e269857fe8a1cb07/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/zhiyy/.android/build-cache/676ee1ab20cb05141bd11577fbdad40b42bd7816/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ecb496cc08dd52551fc5ec6db3bc0632e95a89bb">
+        <dex dex="/Users/zhiyy/AndroidStudioProjects/GSDemo3D/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_d0682c0ec5d5f2101fb3ce41f57ae8c100808922/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/zhiyy/AndroidStudioProjects/GSDemo3D/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="/Users/zhiyy/AndroidStudioProjects/GSDemo3D/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_b0b636fed71c0ae615062d48d493b45fcdec88a1/classes.dex" />
     </item>
 
 </items>

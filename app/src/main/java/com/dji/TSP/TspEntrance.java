@@ -31,6 +31,12 @@ public class TspEntrance {
                 Distance[p][q] = PositionUtil.get3Ddistance(WaypointList.get(p),WaypointList.get(q));
             }
         }
+        /**
+         * 对于back to 1st这个选项，回到起始点的的时候高度不变，所以要重新赋值为平面距离
+         */
+        for (int i = 1;i<len;i++){
+            Distance[i][0] = PositionUtil.get2Ddistance(WaypointList.get(i),WaypointList.get(0));
+        }
         Tsp tsp = new Tsp(Distance);
         return tsp.DP(WaypointList);
     }
